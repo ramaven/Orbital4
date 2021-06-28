@@ -28,7 +28,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   //final _profile = Profile();
   final _profile = globals.Userprofile;
-  String _dropDownValue;
+  String _dropDownValue = globals.Userprofile.gender;
   AuthBase authBase = AuthBase();
 
   CollectionReference usersCol = Firestore.instance.collection("users");

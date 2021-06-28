@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 class Profile {
   CollectionReference usersCol = Firestore.instance.collection("users");
   final FirebaseAuth auth = FirebaseAuth.instance;
+  String uid;
 
   //List of pain logs
   List<Map<String, dynamic>> painLogs;
+  List<String> painLogsIds;
 
   // Profile details
   String username = 'NIL';
@@ -32,6 +34,8 @@ class Profile {
   get() async {
     final FirebaseUser curUser = await auth.currentUser();
     Map<String, dynamic> userProfileInfo;
+
+    uid = curUser.uid;
 
     usersCol
         .document(curUser.uid)
@@ -62,6 +66,7 @@ class Profile {
     Map<String, dynamic> APainLog;
     List<DocumentSnapshot> allPainLogsDocuments;
     List<Map<String, dynamic>> allPainLogsList = [];
+    List<String> painLogIDsList = [];
 
     CollectionReference usersPainLogs =
         usersCol.document(curUser.uid).collection("painLogs");
@@ -71,11 +76,13 @@ class Profile {
 
     for (var i = 0; i < allPainLogsDocuments.length; i++) {
       DocumentSnapshot curDocument = allPainLogsDocuments[i];
+      painLogIDsList.add(curDocument.documentID);
       Map<String, dynamic> curPainLog = curDocument.data;
       allPainLogsList.add(curPainLog);
     }
 
     painLogs = allPainLogsList;
+    painLogsIds = painLogIDsList;
   }
 
   // getPainLogs() async {

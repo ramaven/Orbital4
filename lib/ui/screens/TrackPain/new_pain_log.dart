@@ -118,7 +118,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                           width: size.width * 0.5,
                           child: DropdownButton(
                             hint: _painDropDownValue == null
-                                ? Text('Select your pain area')
+                                ? Text('Select body part')
                                 : Text(
                                     _painDropDownValue,
                                     style: TextStyle(
@@ -132,22 +132,17 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                               'Head',
                               'Neck',
                               'Shoulder',
-                              'Upper arm',
+                              'Arm',
                               'Elbow',
-                              'Lower arm',
-                              'Hand',
                               'Wrist',
                               'Fingers',
                               'Chest',
                               'Stomach',
                               'Waist',
                               'Hips',
-                              'Upper back',
-                              'Mid back',
-                              'Lower back',
+                              'Back',
                               'Butt',
-                              'Upper thigh',
-                              'Lower thigh',
+                              'Thigh',
                               'Knee',
                               'Shin',
                               'Calf',
@@ -168,8 +163,10 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                               setState(
                                 () {
                                   _painDropDownValue = val;
+                                  _pain.bodyPart = val;
                                 },
                               );
+                              print(val);
                             },
                           ),
                         ),
@@ -216,7 +213,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                           width: size.width * 0.5,
                           child: DropdownButton(
                             hint: _painAreaDropDownValue == null
-                                ? Text('Select your pain area')
+                                ? Text('Select specific pain area')
                                 : Text(
                                     _painAreaDropDownValue,
                                     style: TextStyle(
@@ -248,6 +245,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                               setState(
                                 () {
                                   _painAreaDropDownValue = val;
+                                  _pain.areaOnBodyPart = val;
                                 },
                               );
                             },
@@ -315,8 +313,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                   TextFormField(
                       decoration: InputDecoration(
                           labelText: 'Medications taken eg. Aspirin'),
-                      onSaved: (val) =>
-                          setState(() => _pain.otherSymptoms = val)),
+                      onSaved: (val) => setState(() => _pain.medication = val)),
                   Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 16.0),
@@ -333,8 +330,8 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                                   .document(curUser.uid)
                                   .collection("painLogs")
                                   .add({
-                                    'bodyPart': _pain.bodyPart,
-                                    'areaOnBodyPart': _pain.areaOnBodyPart,
+                                    'bodyPart': _painDropDownValue,
+                                    'areaOnBodyPart': _painAreaDropDownValue,
                                     'painLevel': _pain.painLevel,
                                     'painDuration': _pain.painDuration,
                                     'otherSymptoms': _pain.otherSymptoms,
@@ -348,6 +345,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                                       (error) => print(error.toString()));
 
                               _showDialog(context);
+                              print(_painDropDownValue);
                             }
                           },
                           child: Text('Save'))),

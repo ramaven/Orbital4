@@ -104,7 +104,7 @@ List<Appointment> getPainLog() {
 Expanded createPainLogArray() {
   List<PainLogBox> painChildren = <PainLogBox>[];
   painChildren.add(new PainLogBox(
-      date: "01/06/2021",
+      date: "28/06/2021",
       bodyPart: "Eyes",
       painLevel: 5,
       duration: 35,

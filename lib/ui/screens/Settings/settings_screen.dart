@@ -68,6 +68,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
+            Text("To be completed by 1st August"),
             SizedBox(height: size.height * 0.04),
             Row(
               children: [

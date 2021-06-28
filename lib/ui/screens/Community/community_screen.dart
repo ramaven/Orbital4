@@ -10,6 +10,6 @@ class CommunityBackground extends StatefulWidget {
 class _CommunityBackgroundState extends State<CommunityBackground> {
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text("Community page"));
+    return Container(child: Text("To be completed by 1st August"));
   }
 }

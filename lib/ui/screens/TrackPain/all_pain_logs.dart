@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:search_widget/search_widget.dart';
+import '../Profile/Components/profile_model.dart';
 import 'Components/pain_log_box.dart';
 import 'track_pain_screen.dart';
 import 'package:login_register_auth/globals.dart' as globals;
@@ -14,11 +16,16 @@ class AllPainLogs extends StatefulWidget {
 
 class _AllPainLogsState extends State<AllPainLogs> {
   List<Map<String, dynamic>> painLogs;
+  List<String> painLogIDsList;
+
+  final _editFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     setState(() {
+      globals.Userprofile.get();
       painLogs = globals.Userprofile.painLogs;
+      painLogIDsList = globals.Userprofile.painLogsIds;
     });
   }
 
@@ -29,6 +36,7 @@ class _AllPainLogsState extends State<AllPainLogs> {
     globals.Userprofile.get().then((response) {
       setState(() {
         painLogs = globals.Userprofile.painLogs;
+        painLogIDsList = globals.Userprofile.painLogsIds;
       });
     });
 
@@ -53,7 +61,9 @@ class _AllPainLogsState extends State<AllPainLogs> {
         ),
         body: Container(
           padding: const EdgeInsets.all(10),
-          child: ListView(children: createPainLogBoxes(painLogs)
+          child: ListView(
+              children: createPainLogBoxes(
+                  painLogs, painLogIDsList, globals.Userprofile)
               //     [
               //   PainLogBox(
               //       date: "01/06/2021",
@@ -82,10 +92,14 @@ class _AllPainLogsState extends State<AllPainLogs> {
   }
 
   List<PainLogBox> createPainLogBoxes(
-      List<Map<String, dynamic>> painLogsFirebase) {
+      List<Map<String, dynamic>> painLogsFirebase,
+      List<String> painLogsIds,
+      Profile profile) {
     List<PainLogBox> finalList = [];
     for (int i = 0; i < painLogsFirebase.length; i++) {
       Map<String, dynamic> curLog = painLogsFirebase[i];
+      //String docID = painLogsFirebase[i].id
+
       int day = curLog['day'];
       int month = curLog['month'];
       int year = curLog['year'];
@@ -103,6 +117,10 @@ class _AllPainLogsState extends State<AllPainLogs> {
         duration: painDuration.round(),
         otherSymptoms: otherSymptoms,
         medicine: medications,
+        logID: painLogIDsList[i],
+        curUser: profile,
+        context: context,
+        //formkey: _editFormKey,
       ));
     }
     return finalList;

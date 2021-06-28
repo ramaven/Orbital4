@@ -284,6 +284,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "rflutter_alert",
+      "rootUri": "file:///Users/rama/flutter/.pub-cache/hosted/pub.dartlang.org/rflutter_alert-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
       "name": "search_widget",
       "rootUri": "file:///Users/rama/flutter/.pub-cache/hosted/pub.dartlang.org/search_widget-1.0.2",
       "packageUri": "lib/",
@@ -386,7 +392,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-06-28T05:03:32.396466Z",
+  "generated": "2021-06-28T15:23:50.219868Z",
   "generator": "pub",
   "generatorVersion": "2.12.3"
 }

@@ -8,6 +8,8 @@ import 'components/pain_composition.dart';
 import 'components/pain_logs.dart';
 import 'components/tbc_chart.dart';
 
+import 'package:login_register_auth/globals.dart' as globals;
+
 // class DashboardBackground extends StatelessWidget {
 //   const DashboardBackground({Key key}) : super(key: key);
 //
@@ -29,6 +31,7 @@ class DashboardBackground extends StatefulWidget {
 class _DashboardBackgroundState extends State<DashboardBackground> {
   @override
   Widget build(BuildContext context) {
+    globals.Userprofile.get();
     Size size = MediaQuery.of(context).size;
     return new ListView(
       children: [
@@ -36,14 +39,14 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
         SizedBox(
           height: 20,
         ),
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Pain_Composition(),
+        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          PainComposition(),
           TBC_Chart(),
         ]),
         SizedBox(
           height: 20,
         ),
-        Pain_Logs(),
+        PainLogs(),
         SizedBox(
           height: 20,
         ),
@@ -88,11 +91,11 @@ List<Widget> _tiles = const <Widget>[
   // Upcoming appointments
   const Appointments(),
   // Daily pain logs
-  const Pain_Logs(),
+  const PainLogs(),
   // Relief from med
   const MedicineRelief(),
   // Pain composition
-  const Pain_Composition(),
+  const PainComposition(),
   // Activity bar graph
   const Activity()
 ];
