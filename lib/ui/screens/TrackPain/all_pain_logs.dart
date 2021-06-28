@@ -86,9 +86,9 @@ class _AllPainLogsState extends State<AllPainLogs> {
     List<PainLogBox> finalList = [];
     for (int i = 0; i < painLogsFirebase.length; i++) {
       Map<String, dynamic> curLog = painLogsFirebase[i];
-      double day = curLog['day'];
-      double month = curLog['month'];
-      double year = curLog['year'];
+      int day = curLog['day'];
+      int month = curLog['month'];
+      int year = curLog['year'];
       String date = '$day/$month/$year';
       String bodyPart = curLog['bodyPart'];
       double painLevel = curLog['painLevel'];
