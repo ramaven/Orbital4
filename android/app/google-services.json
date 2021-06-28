@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "483005309611",
+    "project_id": "tarekhealthtgt",
+    "storage_bucket": "tarekhealthtgt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483005309611:android:fdfc94257be074d36c8dee",
+        "android_client_info": {
+          "package_name": "com.tarek.login_register_auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483005309611-qgg1fi32f7bve0s4faklv1r0so0ht4cl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUxLsCTQ919GVlWq4FfwUFyf_R_-4_cDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483005309611-qgg1fi32f7bve0s4faklv1r0so0ht4cl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
