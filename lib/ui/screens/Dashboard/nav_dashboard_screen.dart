@@ -49,9 +49,9 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   AuthBase authBase = AuthBase();
   final GlobalKey<FormState> _formKey = GlobalKey();
-  Text titleText = Text("Dashboard");
-  int _currentIndex = 0;
-  Widget childScreen = DashboardBackground();
+  Text titleText = Text("Track Your Pain");
+  int _currentIndex = 1;
+  Widget childScreen = TrackPainBackground();
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_register_auth/ui/screens/TrackPain/Components/pain_model.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -126,6 +127,15 @@ class PainLogBox extends StatelessWidget {
                                 child: SingleChildScrollView(
                                   child: Column(children: [
                                     Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                              "Body Part: ${curLogData['bodyPart']}"),
+                                        ]),
+                                    SizedBox(height: size.height * 0.04),
+
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
@@ -205,62 +215,62 @@ class PainLogBox extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    Container(
-                                      width: size.width * 0.3,
-                                      child: DropdownButton(
-                                        hint: Text(
-                                          _painDropDownValue,
-                                          style: TextStyle(
-                                              color: Colors.blue,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        isExpanded: true,
-                                        iconSize: 30.0,
-                                        style: TextStyle(color: Colors.blue),
-                                        items: [
-                                          'Head',
-                                          'Neck',
-                                          'Shoulder',
-                                          'Arm',
-                                          'Elbow',
-                                          'Wrist',
-                                          'Fingers',
-                                          'Chest',
-                                          'Stomach',
-                                          'Waist',
-                                          'Hips',
-                                          'Back',
-                                          'Butt',
-                                          'Thigh',
-                                          'Knee',
-                                          'Shin',
-                                          'Calf',
-                                          'Ankle',
-                                          'Foot',
-                                        ].map(
-                                          (val) {
-                                            return DropdownMenuItem<String>(
-                                              value: val,
-                                              child: Text(
-                                                val,
-                                              ),
-                                            );
-                                          },
-                                        ).toList(),
-                                        onChanged: (val) async {
-                                          _painDropDownValue = val;
-                                          _pain.areaOnBodyPart = val;
-                                          curLogData.data.update(
-                                              'bodyPart', (value) => value);
-                                          // setState(
-                                          //       () {
-                                          //     _painAreaDropDownValue = val;
-                                          //     _pain.areaOnBodyPart = val;
-                                          //   },
-                                          // );
-                                        },
-                                      ),
-                                    ),
+                                    // Container(
+                                    //   width: size.width * 0.3,
+                                    //   child: DropdownButton(
+                                    //     hint: Text(
+                                    //       _painDropDownValue,
+                                    //       style: TextStyle(
+                                    //           color: Colors.blue,
+                                    //           fontWeight: FontWeight.bold),
+                                    //     ),
+                                    //     isExpanded: true,
+                                    //     iconSize: 30.0,
+                                    //     style: TextStyle(color: Colors.blue),
+                                    //     items: [
+                                    //       'Head',
+                                    //       'Neck',
+                                    //       'Shoulder',
+                                    //       'Arm',
+                                    //       'Elbow',
+                                    //       'Wrist',
+                                    //       'Fingers',
+                                    //       'Chest',
+                                    //       'Stomach',
+                                    //       'Waist',
+                                    //       'Hips',
+                                    //       'Back',
+                                    //       'Butt',
+                                    //       'Thigh',
+                                    //       'Knee',
+                                    //       'Shin',
+                                    //       'Calf',
+                                    //       'Ankle',
+                                    //       'Foot',
+                                    //     ].map(
+                                    //       (val) {
+                                    //         return DropdownMenuItem<String>(
+                                    //           value: val,
+                                    //           child: Text(
+                                    //             val,
+                                    //           ),
+                                    //         );
+                                    //       },
+                                    //     ).toList(),
+                                    //     onChanged: (val) async {
+                                    //       _painDropDownValue = val;
+                                    //       _pain.areaOnBodyPart = val;
+                                    //       curLogData.data.update(
+                                    //           'bodyPart', (value) => value);
+                                    //       // setState(
+                                    //       //       () {
+                                    //       //     _painAreaDropDownValue = val;
+                                    //       //     _pain.areaOnBodyPart = val;
+                                    //       //   },
+                                    //       // );
+                                    //     },
+                                    //   ),
+                                    // ),
                                     SizedBox(height: size.height * 0.01),
                                     Container(
                                       width: size.width * 0.40,
@@ -358,7 +368,7 @@ class PainLogBox extends StatelessWidget {
                                           .collection("painLogs")
                                           .document(logID)
                                           .updateData({
-                                            'bodyPart': _pain.bodyPart,
+                                            //'bodyPart': _pain.bodyPart,
                                             //'areaOnBodyPart': _painAreaDropDownValue,
                                             'painLevel': _pain.painLevel,
                                             'painDuration': _pain.painDuration,
@@ -373,6 +383,15 @@ class PainLogBox extends StatelessWidget {
                                               "Updated Pain log ID ${logID}"))
                                           .catchError((error) =>
                                               print(error.toString()));
+
+                                      // Fluttertoast.showToast(
+                                      //   msg: "Pain log updated",
+                                      //   toastLength: Toast.LENGTH_SHORT,
+                                      //   gravity: ToastGravity.BOTTOM,
+                                      //   timeInSecForIos: 3,
+                                      //   backgroundColor: Colors.black,
+                                      //   textColor: Colors.white,
+                                      // );
 
                                       // Scaffold.of(context).showSnackBar(
                                       //     SnackBar(

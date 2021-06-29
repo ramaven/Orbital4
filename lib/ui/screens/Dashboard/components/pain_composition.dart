@@ -50,8 +50,8 @@ class _PainCompositionState extends State<PainComposition> {
         child: Stack(
           children: [
             SizedBox(
-              height: 150,
-              width: 150,
+              height: 200,
+              width: 200,
               child: PieChart(
                 PieChartData(
                   sectionsSpace: 0,
@@ -181,6 +181,10 @@ class _PainCompositionState extends State<PainComposition> {
             {
               list.add(PieChartSectionData(
                   title: bodyPart,
+                  titleStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold),
                   value: frequency.toDouble(),
                   color: colorArr[x])),
               x++

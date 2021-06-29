@@ -27,30 +27,62 @@ class _TrackPainBackgroundState extends State<TrackPainBackground> {
             initialSelectedDate: DateTime.now(),
             dataSource: PainLogSource(getPainLog()),
           ),
-          SizedBox(height: size.height * 0.01),
-          Row(
+          SizedBox(height: size.height * 0.03),
+          Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Text(
+                "Pain Diary Entries",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: size.height * 0.01),
               ElevatedButton(
                   onPressed: () {
                     Navigator.of(context)
                         .pushReplacementNamed(AllPainLogs.routeName);
                   },
-                  child: Text("View All")),
-              Text(
-                "Pain Diary Entries",
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
-              ),
+                  child: Text("View All Entries")),
+              SizedBox(height: size.height * 0.01),
               ElevatedButton(
                   onPressed: () {
                     Navigator.of(context)
                         .pushReplacementNamed(NewPainLogScreen.routeName);
                   },
-                  child: Text(" New"))
+                  child: Text(" Add New Entry"))
             ],
           ),
-          createPainLogArray()
+          SizedBox(height: size.height * 0.03),
+          Container(
+            width: size.width * 0.95,
+            height: size.height * 0.10,
+            margin: const EdgeInsets.all((10)),
+            decoration: BoxDecoration(
+              color: Colors.yellow[200],
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(" The calendar feature is still under construction."),
+              Text("You can currently add new entries, view them"),
+              Text("and see a summary in the Home tab."),
+            ]),
+          ),
+          //createPainLogArray()
         ],
       ),
     );

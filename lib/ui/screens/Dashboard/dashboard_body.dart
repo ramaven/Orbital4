@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:login_register_auth/ui/screens/Dashboard/components/pain_level.dart';
 
 import 'components/activity.dart';
 import 'components/appointments.dart';
@@ -34,6 +35,7 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
   @override
   void initState() {
     setState(() {
+      globals.Userprofile.get();
       painLogs = globals.Userprofile.painLogs;
     });
   }
@@ -44,22 +46,40 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
     Size size = MediaQuery.of(context).size;
     // If no more than
     if (painLogs.length < 1) {
-      return TextField(
-          decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText:
-                  "Please click the button below to enter more than 1 pain log to view the dashboard summary"));
+      return Text(
+          "Please enter more than 1 pain log to view the dashboard summary");
     }
 
     return new ListView(
       children: [
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          (globals.Userprofile.firstName == "NIL" ||
+                  globals.Userprofile.firstName == null)
+              ? Text("Please fill up your Profile",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue))
+              : Text("Hello ${globals.Userprofile.firstName}!",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue)),
+        ]),
+        Divider(
+          height: size.height * 0.03,
+          thickness: 1,
+        ),
         Appointments(),
         SizedBox(
           height: 20,
         ),
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           PainComposition(),
-          TBC_Chart(),
+          SizedBox(
+            height: 20,
+          ),
+          PainLevel(),
         ]),
         SizedBox(
           height: 20,
