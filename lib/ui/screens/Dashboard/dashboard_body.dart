@@ -29,10 +29,28 @@ class DashboardBackground extends StatefulWidget {
 }
 
 class _DashboardBackgroundState extends State<DashboardBackground> {
+  List<Map<String, dynamic>> painLogs;
+
+  @override
+  void initState() {
+    setState(() {
+      painLogs = globals.Userprofile.painLogs;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     globals.Userprofile.get();
     Size size = MediaQuery.of(context).size;
+    // If no more than
+    if (painLogs.length < 1) {
+      return TextField(
+          decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText:
+                  "Please click the button below to enter more than 1 pain log to view the dashboard summary"));
+    }
+
     return new ListView(
       children: [
         Appointments(),
