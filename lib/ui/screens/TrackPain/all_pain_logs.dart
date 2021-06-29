@@ -120,7 +120,7 @@ class _AllPainLogsState extends State<AllPainLogs> {
         logID: painLogIDsList[i],
         curUser: profile,
         context: context,
-        //formkey: _editFormKey,
+        formkey: _editFormKey,
       ));
     }
     return finalList;
