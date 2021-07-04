@@ -12,8 +12,8 @@ class Profile {
   List<String> painLogsIds;
 
   // Profile details
-  String username = 'NIL';
-  String email = 'NIL';
+  //String username = 'NIL';
+  String email;
   String firstName = 'NIL';
   String lastName = 'NIL';
 
@@ -36,6 +36,7 @@ class Profile {
     Map<String, dynamic> userProfileInfo;
 
     uid = curUser.uid;
+    email = curUser.email;
 
     usersCol
         .document(curUser.uid)
@@ -47,7 +48,7 @@ class Profile {
 
         firstName = userProfileInfo['firstName'];
         lastName = userProfileInfo['lastName'];
-        username = userProfileInfo['username'];
+        //username = userProfileInfo['username'];
         email = userProfileInfo['email'];
         day = userProfileInfo['dayOfBirth'];
         month = userProfileInfo['monthOfBirth'];

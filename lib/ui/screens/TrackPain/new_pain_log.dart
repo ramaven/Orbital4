@@ -261,7 +261,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                         Icon(Icons.local_hospital_rounded, size: 40),
                         Expanded(
                             child: Slider(
-                          min: 0,
+                          min: 1,
                           max: 10,
                           divisions: 10,
                           value: _pain.painLevel,
@@ -314,6 +314,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                       decoration: InputDecoration(
                           labelText: 'Medications taken eg. Aspirin'),
                       onSaved: (val) => setState(() => _pain.medication = val)),
+                  SizedBox(height: size.height * 0.02),
                   Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 16.0),

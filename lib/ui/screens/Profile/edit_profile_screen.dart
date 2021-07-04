@@ -112,20 +112,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                     onSaved: (val) => setState(() => _profile.lastName = val)),
                 SizedBox(height: size.height * 0.02),
-                // Username: Cannot change
-                TextFormField(
-                    enabled: false,
-                    decoration: InputDecoration(
-                      labelText: "${_profile.username}",
-                    )),
-                SizedBox(height: size.height * 0.02),
+                // // Username: Cannot change
+                // TextFormField(
+                //     enabled: false,
+                //     decoration: InputDecoration(
+                //       labelText: "${_profile.username}",
+                //     )),
+                // SizedBox(height: size.height * 0.02),
 
                 // Email: Cannot change
                 TextFormField(
+                  enabled: false,
                   decoration: InputDecoration(
                     labelText: "Email: ${_profile.email}",
                   ),
-                  initialValue: '${_profile.email}',
+                  initialValue: 'Email: ${_profile.email}',
                 ),
                 SizedBox(height: size.height * 0.02),
                 Row(
@@ -305,7 +306,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                 // Family Meidcal History
                 TextFormField(
-                    enabled: false,
                     decoration:
                         InputDecoration(labelText: 'Family Medical History'),
                     initialValue: '${_profile.familyMedicalHistory}',
@@ -333,27 +333,88 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             final FirebaseUser curUser =
                                 await auth.currentUser();
 
-                            await usersCol
+                            // await usersCol
+                            //     .document(curUser.uid)
+                            //     .updateData({
+                            //       'firstName': _profile.firstName,
+                            //       'lastName': _profile.lastName,
+                            //       'username': _profile.username,
+                            //       'email': _profile.email,
+                            //       'dayOfBirth': _profile.day,
+                            //       'monthOfBirth': _profile.month,
+                            //       'yearOfBirth': _profile.year,
+                            //       'gender': _profile.gender,
+                            //       'height': _profile.height,
+                            //       'weight': _profile.weight,
+                            //       'existingConditions':
+                            //           _profile.existingConditions,
+                            //       'drugAllergies': _profile.drugAllergies,
+                            //       'familyMedicalHistory':
+                            //           _profile.familyMedicalHistory,
+                            //     })
+                            //     .then((value) => print("New pain log added"))
+                            //     .catchError((error) => print(error.toString()));
+
+                            usersCol
                                 .document(curUser.uid)
-                                .updateData({
-                                  'firstName': _profile.firstName,
-                                  'lastName': _profile.lastName,
-                                  'username': _profile.username,
-                                  'email': _profile.email,
-                                  'dayOfBirth': _profile.day,
-                                  'monthOfBirth': _profile.month,
-                                  'yearOfBirth': _profile.year,
-                                  'gender': _profile.gender,
-                                  'height': _profile.height,
-                                  'weight': _profile.weight,
-                                  'existingConditions':
-                                      _profile.existingConditions,
-                                  'drugAllergies': _profile.drugAllergies,
-                                  'familyMedicalHistory':
-                                      _profile.familyMedicalHistory,
-                                })
-                                .then((value) => print("New pain log added"))
-                                .catchError((error) => print(error.toString()));
+                                .get()
+                                .then((docSnapshot) => {
+                                      if (docSnapshot.exists)
+                                        {
+                                          usersCol
+                                              .document(curUser.uid)
+                                              .setData({
+                                                'firstName': _profile.firstName,
+                                                'lastName': _profile.lastName,
+                                                //'username': _profile.username,
+                                                'email': _profile.email,
+                                                'dayOfBirth': _profile.day,
+                                                'monthOfBirth': _profile.month,
+                                                'yearOfBirth': _profile.year,
+                                                'gender': _profile.gender,
+                                                'height': _profile.height,
+                                                'weight': _profile.weight,
+                                                'existingConditions':
+                                                    _profile.existingConditions,
+                                                'drugAllergies':
+                                                    _profile.drugAllergies,
+                                                'familyMedicalHistory': _profile
+                                                    .familyMedicalHistory,
+                                              }, merge: true)
+                                              .then((value) =>
+                                                  print("Profile info updated"))
+                                              .catchError((error) =>
+                                                  print(error.toString()))
+                                        }
+                                      else
+                                        {
+                                          usersCol
+                                              .document(curUser.uid)
+                                              .setData({
+                                                'firstName': _profile.firstName,
+                                                'lastName': _profile.lastName,
+                                                //'username': _profile.username,
+                                                'email': _profile.email,
+                                                'dayOfBirth': _profile.day,
+                                                'monthOfBirth': _profile.month,
+                                                'yearOfBirth': _profile.year,
+                                                'gender': _profile.gender,
+                                                'height': _profile.height,
+                                                'weight': _profile.weight,
+                                                'existingConditions':
+                                                    _profile.existingConditions,
+                                                'drugAllergies':
+                                                    _profile.drugAllergies,
+                                                'familyMedicalHistory': _profile
+                                                    .familyMedicalHistory,
+                                              })
+                                              .then((value) =>
+                                                  print("Profile info updated"))
+                                              .catchError((error) =>
+                                                  print(error.toString()))
+                                        }
+                                    });
+
                             Navigator.of(context).pop;
                             _showDialog(context);
                           }

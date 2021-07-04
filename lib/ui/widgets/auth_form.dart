@@ -18,6 +18,12 @@ class _AuthFormState extends State<AuthForm> {
   String _email = '', _password = '';
   AuthBase authBase = AuthBase();
 
+  // bool validatePassword(String value) {
+  //   String pattern = r'^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$';
+  //   RegExp regExp = new RegExp(pattern);
+  //   return regExp.hasMatch(value);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -46,9 +52,11 @@ class _AuthFormState extends State<AuthForm> {
               onChanged: (value) {
                 _password = value;
               },
-              validator: (value) => value.length <= 6
-                  ? 'Your password must be larger than 6 characters'
-                  : null,
+              validator: (value) =>
+                  (!RegExp(r'^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$')
+                          .hasMatch(value))
+                      ? 'At least 6 characters & alphanumeric'
+                      : null,
             ),
             SizedBox(height: 20),
             OriginalButton(
@@ -65,8 +73,8 @@ class _AuthFormState extends State<AuthForm> {
                     //Navigator.of(context).pushReplacementNamed('home');
                   } else {
                     await authBase.registerWithEmailAndPassword(
-                        _email, _password);
-                    Navigator.of(context).pushReplacementNamed('login');
+                        context, _email, _password);
+                    //Navigator.of(context).pushReplacementNamed('login');
                   }
                 }
               },

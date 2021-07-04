@@ -16,11 +16,29 @@ class AuthBase {
   }
 
   Future<void> registerWithEmailAndPassword(
-      String email, String password) async {
+      BuildContext context, String email, String password) async {
     try {
       final authResult = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-
+      if (authResult != null) {
+        await authResult.user.sendEmailVerification();
+        await FirebaseAuth.instance.signOut();
+        // showDialog(
+        //     context: context,
+        //     builder: (BuildContext context) {
+        //       return AlertDialog(
+        //         title: Text('Success'),
+        //         content: Text('Please verify your email before logging in.'),
+        //         actions: <Widget>[
+        //           FlatButton(
+        //               onPressed: () {
+        //                 Navigator.of(context).pop();
+        //               },
+        //               child: Text('OK'))
+        //         ],
+        //       );
+        //     });
+      }
       // CollectionReference usersCol = Firestore.instance.collection('users');
       // var userUID = authResult.user.uid;
       // usersCol.document(userUID).setData({
@@ -30,7 +48,8 @@ class AuthBase {
       return _userFromFirebase(authResult.user);
     } catch (e) {
       print(e.toString());
-      return null;
+      showError("Email already in use", context);
+      return;
     }
   }
 
@@ -51,26 +70,17 @@ class AuthBase {
       final authResult = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (authResult.user != null) {
-        globals.curUserUid = authResult.user.uid;
-        Navigator.of(context).pushReplacementNamed('home');
+        if (authResult.user.isEmailVerified == false) {
+          showError("Please verify your email.", context);
+        } else {
+          globals.curUserUid = authResult.user.uid;
+          Navigator.of(context).pushReplacementNamed('home');
+        }
       }
     } on PlatformException catch (e) {
       print(e.toString());
-      showError("Invalid username or password.", context);
-      // if (e.code == 'wrong-password') {
-      //   Scaffold.of(context).showSnackBar(SnackBar(
-      //     content: Text("Wrong Password"),
-      //   ));
-      // } else if (e.code == 'ERROR_USER_NOT_FOUND') {
-      //   // Scaffold.of(context).showSnackBar(SnackBar(
-      //   //   content: Text("User not found"),
-      //   // ));
-      //   showError("e.toString()", context);
-      // } else if (e.code == 'invalid-email') {
-      //   Scaffold.of(context).showSnackBar(SnackBar(
-      //     content: Text("Invalid E-Mail"),
-      //   ));
-      //}
+      showError("Invalid username or password", context);
+
       return false;
     }
   }

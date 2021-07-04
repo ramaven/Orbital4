@@ -119,18 +119,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                 SizedBox(height: size.height * 0.02),
                 // Username: Cannot change
-                ProfileField(label: 'Username:', value: '${_profile.username}'),
+                //ProfileField(label: 'Username:', value: '${_profile.username}'),
 
-                SizedBox(height: size.height * 0.02),
+                //SizedBox(height: size.height * 0.02),
 
                 // Email: Cannot change
-                ProfileField(label: 'Email:', value: '${_profile.email}'),
+                ProfileField(label: 'Email:', value: " ${_profile.email}"),
 
                 SizedBox(height: size.height * 0.02),
                 ProfileField(
                     label: 'Date of Birth (d/m/y)',
                     value:
                         '${_profile.day} / ${_profile.month} / ${_profile.year}'),
+                SizedBox(height: size.height * 0.02),
 
                 // END: DATE VALIDATION DAY-MONTH-YEAR
                 //SizedBox(height: size.height * 0.02),
