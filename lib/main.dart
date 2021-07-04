@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_register_auth/ui/change_pass_screen.dart';
 import 'package:login_register_auth/ui/screens/Dashboard/nav_dashboard_screen.dart';
 import 'package:login_register_auth/ui/screens/Profile/edit_profile_screen.dart';
 import 'package:login_register_auth/ui/screens/Profile/profile_screen.dart';
@@ -75,6 +76,7 @@ class MyApp extends StatelessWidget {
               'home': (context) => DashboardScreen(),
               'login': (context) => AuthScreen(authType: AuthType.login),
               'register': (context) => AuthScreen(authType: AuthType.register),
+              'changePassword': (context) => ChangePassScreen(),
               //TrackPainBackground.routeName: (ctx) => TrackPainBackground(),
               SettingsScreen.routeName: (ctx) => SettingsScreen(),
               ProfileScreen.routeName: (ctx) => ProfileScreen(),

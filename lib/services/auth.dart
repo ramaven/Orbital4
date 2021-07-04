@@ -23,21 +23,21 @@ class AuthBase {
       if (authResult != null) {
         await authResult.user.sendEmailVerification();
         await FirebaseAuth.instance.signOut();
-        // showDialog(
-        //     context: context,
-        //     builder: (BuildContext context) {
-        //       return AlertDialog(
-        //         title: Text('Success'),
-        //         content: Text('Please verify your email before logging in.'),
-        //         actions: <Widget>[
-        //           FlatButton(
-        //               onPressed: () {
-        //                 Navigator.of(context).pop();
-        //               },
-        //               child: Text('OK'))
-        //         ],
-        //       );
-        //     });
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Account created!'),
+                content: Text('Please verify your email before logging in.'),
+                actions: <Widget>[
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('OK'))
+                ],
+              );
+            });
       }
       // CollectionReference usersCol = Firestore.instance.collection('users');
       // var userUID = authResult.user.uid;
@@ -79,7 +79,7 @@ class AuthBase {
       }
     } on PlatformException catch (e) {
       print(e.toString());
-      showError("Invalid username or password", context);
+      showError("Invalid email or password", context);
 
       return false;
     }

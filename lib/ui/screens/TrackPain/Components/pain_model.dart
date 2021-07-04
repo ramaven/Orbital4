@@ -14,7 +14,7 @@ class Pain {
   //Description of pain
   String bodyPart = 'NIL';
   String areaOnBodyPart = 'NIL';
-  double painLevel = 0;
+  double painLevel = 1;
   int painDuration = 0;
   String otherSymptoms = 'NIL';
   String medication = 'NIL';

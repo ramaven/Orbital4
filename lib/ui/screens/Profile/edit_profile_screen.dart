@@ -38,7 +38,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    _profile.get();
+    //_profile.get();
     // final edit = ValueNotifier<int>(0);
 
     return Scaffold(
@@ -124,9 +124,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 TextFormField(
                   enabled: false,
                   decoration: InputDecoration(
-                    labelText: "Email: ${_profile.email}",
+                    labelText: "Email: ",
                   ),
-                  initialValue: 'Email: ${_profile.email}',
+                  initialValue: '${_profile.email}',
                 ),
                 SizedBox(height: size.height * 0.02),
                 Row(
@@ -213,7 +213,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           style: TextStyle(color: Colors.blue),
                           items: ['Female', 'Male', 'Others'].map(
                             (val) {
-                              _profile.gender = val;
+                              //_profile.gender = val;
                               return DropdownMenuItem<String>(
                                 value: val,
                                 child: Text(val),
@@ -224,8 +224,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             setState(
                               () {
                                 _dropDownValue = val;
+                                _profile.gender = val;
                               },
                             );
+                            print(val);
+                            print(_profile.gender);
+                            print(_dropDownValue);
                           },
                         ),
                       ),
@@ -332,28 +336,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             // _profile.save();
                             final FirebaseUser curUser =
                                 await auth.currentUser();
-
-                            // await usersCol
-                            //     .document(curUser.uid)
-                            //     .updateData({
-                            //       'firstName': _profile.firstName,
-                            //       'lastName': _profile.lastName,
-                            //       'username': _profile.username,
-                            //       'email': _profile.email,
-                            //       'dayOfBirth': _profile.day,
-                            //       'monthOfBirth': _profile.month,
-                            //       'yearOfBirth': _profile.year,
-                            //       'gender': _profile.gender,
-                            //       'height': _profile.height,
-                            //       'weight': _profile.weight,
-                            //       'existingConditions':
-                            //           _profile.existingConditions,
-                            //       'drugAllergies': _profile.drugAllergies,
-                            //       'familyMedicalHistory':
-                            //           _profile.familyMedicalHistory,
-                            //     })
-                            //     .then((value) => print("New pain log added"))
-                            //     .catchError((error) => print(error.toString()));
 
                             usersCol
                                 .document(curUser.uid)

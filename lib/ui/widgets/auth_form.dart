@@ -43,7 +43,7 @@ class _AuthFormState extends State<AuthForm> {
               validator: (value) =>
                   value.isEmpty ? 'You must enter a valid email' : null,
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Enter your password',
@@ -58,7 +58,7 @@ class _AuthFormState extends State<AuthForm> {
                       ? 'At least 6 characters & alphanumeric'
                       : null,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 25),
             OriginalButton(
               text: widget.authType == AuthType.login ? 'Login' : 'Register',
               color: Colors.lightBlue,
@@ -79,7 +79,7 @@ class _AuthFormState extends State<AuthForm> {
                 }
               },
             ),
-            SizedBox(height: 6),
+            SizedBox(height: 20),
             TextButton(
               onPressed: () {
                 if (widget.authType == AuthType.login) {
@@ -91,11 +91,37 @@ class _AuthFormState extends State<AuthForm> {
               },
               child: Text(
                 widget.authType == AuthType.login
-                    ? 'Don\'t have an account?'
-                    : 'Already have an account?',
-                style: TextStyle(fontSize: 18, color: Colors.black54),
+                    ? 'Don\'t have an account? Click here to create one.'
+                    : 'Already have an account? Login',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.black,
+                  //color: Colors.orange[800],
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
+
+            // reset password option only for login page
+
+            (widget.authType == AuthType.login)
+                ? TextButton(
+                    child: Text(
+                      'Forgot password? Click to reset',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.orange,
+                        //color: Colors.orange[800],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('changePassword');
+                    },
+                  )
+                : SizedBox(
+                    height: 1,
+                  ),
           ],
         ),
       ),

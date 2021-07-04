@@ -18,7 +18,7 @@ class AuthScreen extends StatelessWidget {
             Stack(
               children: <Widget>[
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.4,
                   decoration: BoxDecoration(
                     color: Colors.lightBlueAccent,
                     borderRadius: BorderRadius.only(
@@ -31,14 +31,14 @@ class AuthScreen extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 65),
-                      Text(
-                        'Hello!',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 32,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.2),
-                      ),
+                      // Text(
+                      //   'Hello!',
+                      //   style: TextStyle(
+                      //       color: Colors.white,
+                      //       fontSize: 32,
+                      //       fontWeight: FontWeight.w600,
+                      //       letterSpacing: 1.2),
+                      // ),
                       Hero(
                         tag: 'logoAnimation',
                         child: Image.asset(
@@ -51,6 +51,7 @@ class AuthScreen extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 10),
             AuthForm(authType: authType),
           ],
         ),
