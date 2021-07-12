@@ -63,31 +63,7 @@ class _AllPainLogsState extends State<AllPainLogs> {
           padding: const EdgeInsets.all(10),
           child: ListView(
               children: createPainLogBoxes(
-                  painLogs, painLogIDsList, globals.Userprofile)
-              //     [
-              //   PainLogBox(
-              //       date: "01/06/2021",
-              //       bodyPart: "Eyes",
-              //       painLevel: 5,
-              //       duration: 35,
-              //       otherSymptoms: "NIL",
-              //       medicine: "Aspirin"),
-              //   PainLogBox(
-              //       date: "01/06/2021",
-              //       bodyPart: "Eyes",
-              //       painLevel: 5,
-              //       duration: 35,
-              //       otherSymptoms: "NIL",
-              //       medicine: "Aspirin"),
-              //   PainLogBox(
-              //       date: "01/06/2021",
-              //       bodyPart: "Eyes",
-              //       painLevel: 5,
-              //       duration: 35,
-              //       otherSymptoms: "NIL",
-              //       medicine: "Aspirin")
-              // ]
-              ),
+                  painLogs, painLogIDsList, globals.Userprofile)),
         ));
   }
 
@@ -105,16 +81,20 @@ class _AllPainLogsState extends State<AllPainLogs> {
       int year = curLog['year'];
       String date = '$day/$month/$year';
       String bodyPart = curLog['bodyPart'];
+      String areaOnBodyPart = curLog['areaOnBodyPart'];
       double painLevel = curLog['painLevel'];
       int painDuration = curLog['painDuration'];
+      String durationType = curLog['durationType'];
       String otherSymptoms = curLog['otherSymptoms'];
       String medications = curLog['medications'];
 
       finalList.add(new PainLogBox(
         date: date,
         bodyPart: bodyPart,
+        areaOnBodyPart: areaOnBodyPart,
         painLevel: painLevel.round(),
         duration: painDuration.round(),
+        durationType: durationType,
         otherSymptoms: otherSymptoms,
         medicine: medications,
         logID: painLogIDsList[i],

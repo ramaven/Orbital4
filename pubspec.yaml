@@ -38,6 +38,11 @@ dependencies:
   rflutter_alert: ^1.0.3
   fluttertoast: ^3.1.0
   intl: ^0.17.0
+  direct_select: ^1.0.0
+  charts_flutter: ^0.11.0
+  google_maps_flutter: ^2.0.6
+  searchfield: ^0.5.2
+  geojson: ^1.0.0
 
 dev_dependencies:
   flutter_test:

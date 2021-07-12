@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import "dart:collection";
 
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:login_register_auth/ui/screens/FindDoctors/all_clinics_screen.dart';
+import 'package:login_register_auth/ui/screens/FindDoctors/map_all_screen.dart';
+import 'package:login_register_auth/ui/screens/FindDoctors/saved_clinics_screen.dart';
+
 class FindDoctorsBackground extends StatefulWidget {
   const FindDoctorsBackground({Key key}) : super(key: key);
 
@@ -8,61 +13,91 @@ class FindDoctorsBackground extends StatefulWidget {
   _FindDoctorsBackgroundState createState() => _FindDoctorsBackgroundState();
 }
 
-class Customer {
-  String name;
-  int age;
-  int test;
-
-  Customer(this.name, this.age, this.test);
-
-  @override
-  String toString() {
-    return '{ ${this.name}, ${this.age} , ${this.test}}';
-  }
-}
-
 class _FindDoctorsBackgroundState extends State<FindDoctorsBackground> {
-  int main() {
-    HashMap map = new HashMap<String, int>();
-    map['knee'] = 60;
-    map['head'] = 10;
-    map['arm'] = 5;
-    map['leg'] = 11;
-    map['toe'] = 1;
-    map['toe'] = 13;
-
-    print(map);
-
-    LinkedHashMap sortListMap(HashMap map) {
-      List mapKeys = map.keys.toList(growable: false);
-      mapKeys.sort((k1, k2) => map[k2] - map[k1]);
-      LinkedHashMap resMap = new LinkedHashMap();
-      mapKeys.forEach((k1) {
-        resMap[k1] = map[k1];
-      });
-      return resMap;
-    }
-
-    LinkedHashMap sortedMap = sortListMap(map);
-
-    print(sortedMap);
-
-    var list = [];
-    var numList = [1, 2, 3];
-    int x = 0;
-    sortedMap.forEach((bodyPart, frequency) => {
-          list.add(Customer(bodyPart, frequency, numList[x])),
-          x++,
-        });
-
-    print(list);
-    return 0;
-  }
+  int screen = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("To be completed by 1st August"),
-    );
+    Size size = MediaQuery.of(context).size;
+    return Column(children: [
+      Container(
+        //color: Colors.blueGrey,
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          TextButton(
+              onPressed: () {
+                setState(() {
+                  screen = 0;
+                });
+              },
+              child: Text(
+                " All Clinics ",
+                style: TextStyle(color: Colors.black),
+              ),
+              style: ButtonStyle(
+                  backgroundColor: screen == 0
+                      ? MaterialStateProperty.all(Colors.lightBlue[100])
+                      : MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.grey))))),
+          TextButton(
+              onPressed: () {
+                setState(() {
+                  screen = 1;
+                });
+              },
+              child:
+                  Text("     Map     ", style: TextStyle(color: Colors.black)),
+              style: ButtonStyle(
+                  backgroundColor: screen == 1
+                      ? MaterialStateProperty.all(Colors.lightBlue[100])
+                      : MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.grey))))),
+          TextButton(
+              onPressed: () {
+                setState(() {
+                  screen = 2;
+                });
+              },
+              child:
+                  Text("    Saved    ", style: TextStyle(color: Colors.black)),
+              style: ButtonStyle(
+                  backgroundColor: screen == 2
+                      ? MaterialStateProperty.all(Colors.lightBlue[100])
+                      : MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.grey))))),
+        ]),
+      ),
+      SizedBox(
+        height: size.height * 0.01,
+      ),
+      (screen == 0)
+          ? AllClinicsScreen()
+          : (screen == 1)
+              ? MapAllClinicsScreen()
+              : SavedClinicsScreen(),
+      // Expanded(
+      //   child: SingleChildScrollView(
+      //     child: Container(
+      //       height: size.height * 0.8,
+      //       child: GoogleMap(
+      //         initialCameraPosition: CameraPosition(
+      //             bearing: 192.8334901395799,
+      //             target: LatLng(37.43296265331129, -122.08832357078792),
+      //             tilt: 59.440717697143555,
+      //             zoom: 19.151926040649414),
+      //       ),
+      //       //Text("To be completed by 1st August"),
+      //     ),
+      //   ),
+      // ),
+    ]);
   }
 }

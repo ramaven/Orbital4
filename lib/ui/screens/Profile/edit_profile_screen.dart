@@ -141,6 +141,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       Container(
                         width: size.width * 0.2,
                         child: TextFormField(
+                            keyboardType: TextInputType.number,
                             initialValue: '${_profile.day}',
                             decoration: InputDecoration(labelText: 'Day'),
                             validator: (value) {
@@ -157,6 +158,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       Container(
                         width: size.width * 0.2,
                         child: TextFormField(
+                            keyboardType: TextInputType.number,
                             initialValue: '${_profile.month}',
                             decoration: InputDecoration(labelText: 'Month'),
                             validator: (value) {
@@ -173,6 +175,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       Container(
                         width: size.width * 0.2,
                         child: TextFormField(
+                            keyboardType: TextInputType.number,
                             initialValue: '${_profile.year}',
                             decoration: InputDecoration(labelText: 'Year'),
                             validator: (value) {
@@ -251,6 +254,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 // Height
                 TextFormField(
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(labelText: 'Height'),
                     initialValue: '${_profile.height}',
                     validator: (value) {
@@ -265,6 +269,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                 // Weight
                 TextFormField(
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(labelText: 'Weight'),
                     initialValue: '${_profile.weight}',
                     validator: (value) {

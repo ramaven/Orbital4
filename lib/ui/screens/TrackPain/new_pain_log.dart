@@ -2,6 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'package:direct_select/direct_select.dart';
+import 'package:searchfield/searchfield.dart';
+import 'Components/medicine_list.dart' as med;
+
 import 'Components/pain_model.dart';
 
 class NewPainLogScreen extends StatefulWidget {
@@ -16,6 +20,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
   final _pain = Pain();
   String _painDropDownValue;
   String _painAreaDropDownValue;
+  String _durationTypeDropDownValue;
 
   CollectionReference usersCol = Firestore.instance.collection("users");
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -53,6 +58,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                     Container(
                       width: size.width * 0.2,
                       child: TextFormField(
+                          keyboardType: TextInputType.number,
                           initialValue: '${_pain.day}',
                           decoration: InputDecoration(labelText: 'Day'),
                           validator: (value) {
@@ -69,6 +75,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                     Container(
                       width: size.width * 0.2,
                       child: TextFormField(
+                          keyboardType: TextInputType.number,
                           initialValue: '${_pain.month}',
                           decoration: InputDecoration(labelText: 'Month'),
                           validator: (value) {
@@ -85,6 +92,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                     Container(
                       width: size.width * 0.2,
                       child: TextFormField(
+                          keyboardType: TextInputType.number,
                           initialValue: '${_pain.year}',
                           decoration: InputDecoration(labelText: 'Year'),
                           validator: (value) {
@@ -287,18 +295,61 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                   SizedBox(height: size.height * 0.02),
 
                   //Enter pain duration
-                  TextFormField(
-                      decoration: InputDecoration(
-                          labelText: 'Duration of pain (minutes)'),
-                      // validator: (value) {
-                      //   if (value.isEmpty) {
-                      //     String msg = 'Pls enter symptoms';
-                      //     return msg;
-                      //   }
-                      //   //return "ok";
-                      // },
-                      onSaved: (val) =>
-                          setState(() => _pain.painDuration = int.parse(val))),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: size.width * 0.4,
+                          child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              decoration:
+                                  InputDecoration(labelText: 'Duration'),
+                              // validator: (value) {
+                              //   if (value.isEmpty) {
+                              //     String msg = 'Pls enter symptoms';
+                              //     return msg;
+                              //   }
+                              //   //return "ok";
+                              // },
+                              onSaved: (val) => setState(
+                                  () => _pain.painDuration = int.parse(val))),
+                        ),
+                        Container(
+                          width: size.width * 0.4,
+                          child: DropdownButton(
+                            hint: _durationTypeDropDownValue == null
+                                ? Text('Duration type')
+                                : Text(
+                                    _durationTypeDropDownValue,
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                            isExpanded: true,
+                            iconSize: 30.0,
+                            style: TextStyle(color: Colors.blue),
+                            items: ['seconds', 'minutes', 'hours'].map(
+                              (val) {
+                                _pain.durationType = val;
+                                return DropdownMenuItem<String>(
+                                  value: val,
+                                  child: Text(
+                                    val,
+                                  ),
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (val) {
+                              setState(
+                                () {
+                                  _durationTypeDropDownValue = val;
+                                  _pain.durationType = val;
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ]),
                   SizedBox(height: size.height * 0.02),
 
                   // Enter other symptoms
@@ -310,10 +361,39 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                   SizedBox(height: size.height * 0.02),
 
                   // Enter medications
-                  TextFormField(
-                      decoration: InputDecoration(
-                          labelText: 'Medications taken eg. Aspirin'),
-                      onSaved: (val) => setState(() => _pain.medication = val)),
+                  // TextFormField(
+                  //     decoration: InputDecoration(
+                  //         labelText: 'Medications taken eg. Aspirin'),
+                  //     onSaved: (val) => setState(() => _pain.medication = val)),
+                  SearchField(
+                    hint: 'Medications',
+                    suggestions: med.list,
+                    validator: (x) {
+                      if (!med.list.contains(x) || x.isEmpty) {
+                        return 'Please Enter a valid State';
+                      }
+                      return null;
+                    },
+                    searchInputDecoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black.withOpacity(0.8),
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                    ),
+                    maxSuggestionsInViewPort: 6,
+                    itemHeight: 50,
+                    onTap: (x) {
+                      print(x);
+                      setState(() {
+                        _pain.medication = x;
+                      });
+                    },
+                  ),
+
                   SizedBox(height: size.height * 0.02),
                   Container(
                       padding: const EdgeInsets.symmetric(
@@ -335,6 +415,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                                     'areaOnBodyPart': _painAreaDropDownValue,
                                     'painLevel': _pain.painLevel,
                                     'painDuration': _pain.painDuration,
+                                    'durationType': _pain.durationType,
                                     'otherSymptoms': _pain.otherSymptoms,
                                     'medications': _pain.medication,
                                     'day': _pain.day,
@@ -362,5 +443,48 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
   _showDialog(BuildContext context) {
     Scaffold.of(context)
         .showSnackBar(SnackBar(content: Text('Saved new entry')));
+  }
+}
+
+class MySelectionItem extends StatelessWidget {
+  final String title;
+  final bool isForList;
+
+  const MySelectionItem({Key key, this.title, this.isForList = true})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60.0,
+      child: isForList
+          ? Padding(
+              child: _buildItem(context),
+              padding: EdgeInsets.all(10.0),
+            )
+          : Card(
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Stack(
+                children: <Widget>[
+                  _buildItem(context),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Icon(Icons.arrow_drop_down),
+                  )
+                ],
+              ),
+            ),
+    );
+  }
+
+  Widget _buildItem(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      alignment: Alignment.center,
+      child: FittedBox(
+          child: Text(
+        title,
+      )),
+    );
   }
 }

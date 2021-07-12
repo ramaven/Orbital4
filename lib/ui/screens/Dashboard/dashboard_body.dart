@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:login_register_auth/ui/screens/Dashboard/components/bar_chart_pain.dart';
 import 'package:login_register_auth/ui/screens/Dashboard/components/pain_level.dart';
+import 'package:login_register_auth/ui/screens/Dashboard/components/pain_logs.dart';
 import 'package:login_register_auth/ui/screens/Dashboard/components/testingPainLog/line_chart.dart';
 
 import 'components/activity.dart';
@@ -72,10 +74,10 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
           height: size.height * 0.03,
           thickness: 1,
         ),
-        Appointments(),
-        SizedBox(
-          height: 20,
-        ),
+        // Appointments(),
+        // SizedBox(
+        //   height: 20,
+        // ),
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           PainComposition(),
           SizedBox(
@@ -86,7 +88,12 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
         SizedBox(
           height: 20,
         ),
-        StockChartExample(),
+        PainLogs(),
+        // Container(
+        //     width: size.width * 0.5,
+        //     height: size.width * 0.5,
+        //     child: PainLogsBar()),
+        //child: TimeSeriesBar.withSampleData()),
         SizedBox(
           height: 20,
         ),

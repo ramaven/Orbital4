@@ -11,8 +11,10 @@ import '../../Profile/Components/profile_model.dart';
 class PainLogBox extends StatelessWidget {
   final String date;
   final String bodyPart;
+  final String areaOnBodyPart;
   final int painLevel;
   final int duration;
+  final String durationType;
   final String otherSymptoms;
   final String medicine;
   // final Function editFunction;
@@ -27,8 +29,10 @@ class PainLogBox extends StatelessWidget {
     Key key,
     this.date,
     this.bodyPart,
+    this.areaOnBodyPart,
     this.painLevel,
     this.duration,
+    this.durationType,
     this.otherSymptoms,
     this.medicine,
     // this.editFunction,
@@ -44,7 +48,8 @@ class PainLogBox extends StatelessWidget {
     final _pain = Pain();
 
     Size size = MediaQuery.of(context).size;
-    String _painDropDownValue;
+    String _durationTypeDropDownValue;
+    String empty = "";
 
     return Container(
       width: size.width * 0.8,
@@ -74,22 +79,70 @@ class PainLogBox extends StatelessWidget {
             ),
             onPressed: () async {
               // delete function for firebase
-              curUser.usersCol
-                  .document(curUser.uid)
-                  .collection("painLogs")
-                  .document(logID)
-                  .delete();
-              Scaffold.of(context)
-                  .showSnackBar(SnackBar(content: Text('Entry deleted')));
+
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Warning'),
+                      content: Container(
+                        height: size.height * 0.15,
+                        child: Column(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                  'Are you sure you would like to delete this entry?'),
+                              SizedBox(
+                                height: size.height * 0.04,
+                              ),
+                              ElevatedButton(
+                                  child: Text('Yes'),
+                                  onPressed: () {
+                                    curUser.usersCol
+                                        .document(curUser.uid)
+                                        .collection("painLogs")
+                                        .document(logID)
+                                        .delete();
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text('Deleted'),
+                                            content: Text('Pain Log deleted.'),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text('OK'))
+                                            ],
+                                          );
+                                        });
+                                    // Scaffold.of(context).showSnackBar(
+                                    //     SnackBar(content: Text('Entry deleted')));
+                                  })
+                            ]),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Back'))
+                      ],
+                    );
+                  });
             }),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Area: $bodyPart, Pain Level: $painLevel",
+            Text(
+                "Area: ${areaOnBodyPart != null ? areaOnBodyPart : empty} $bodyPart, Pain Level: $painLevel",
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
             Text("Date: $date"),
-            Text("Duration: $duration minutes"),
+            Text("Duration: $duration $durationType"),
             Text("Medicines taken: $medicine"),
             Text("Other symptoms: $otherSymptoms"),
           ],
@@ -108,7 +161,7 @@ class PainLogBox extends StatelessWidget {
                   .document(logID)
                   .get();
 
-              _painDropDownValue = curLogData["bodyPart"];
+              _durationTypeDropDownValue = curLogData["durationType"];
 
               showDialog(
                   context: context,
@@ -134,7 +187,6 @@ class PainLogBox extends StatelessWidget {
                                               "Body Part: ${curLogData['bodyPart']}"),
                                         ]),
                                     SizedBox(height: size.height * 0.04),
-
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -142,6 +194,7 @@ class PainLogBox extends StatelessWidget {
                                         Container(
                                           width: size.width * 0.15,
                                           child: TextFormField(
+                                            keyboardType: TextInputType.number,
                                             initialValue:
                                                 '${curLogData.data['day']}',
                                             decoration: InputDecoration(
@@ -167,6 +220,7 @@ class PainLogBox extends StatelessWidget {
                                         Container(
                                           width: size.width * 0.15,
                                           child: TextFormField(
+                                            keyboardType: TextInputType.number,
                                             initialValue:
                                                 '${curLogData.data['month']}',
                                             decoration: InputDecoration(
@@ -191,6 +245,7 @@ class PainLogBox extends StatelessWidget {
                                         Container(
                                           width: size.width * 0.20,
                                           child: TextFormField(
+                                            keyboardType: TextInputType.number,
                                             initialValue:
                                                 '${curLogData.data['year']}',
                                             decoration: InputDecoration(
@@ -215,66 +270,11 @@ class PainLogBox extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    // Container(
-                                    //   width: size.width * 0.3,
-                                    //   child: DropdownButton(
-                                    //     hint: Text(
-                                    //       _painDropDownValue,
-                                    //       style: TextStyle(
-                                    //           color: Colors.blue,
-                                    //           fontWeight: FontWeight.bold),
-                                    //     ),
-                                    //     isExpanded: true,
-                                    //     iconSize: 30.0,
-                                    //     style: TextStyle(color: Colors.blue),
-                                    //     items: [
-                                    //       'Head',
-                                    //       'Neck',
-                                    //       'Shoulder',
-                                    //       'Arm',
-                                    //       'Elbow',
-                                    //       'Wrist',
-                                    //       'Fingers',
-                                    //       'Chest',
-                                    //       'Stomach',
-                                    //       'Waist',
-                                    //       'Hips',
-                                    //       'Back',
-                                    //       'Butt',
-                                    //       'Thigh',
-                                    //       'Knee',
-                                    //       'Shin',
-                                    //       'Calf',
-                                    //       'Ankle',
-                                    //       'Foot',
-                                    //     ].map(
-                                    //       (val) {
-                                    //         return DropdownMenuItem<String>(
-                                    //           value: val,
-                                    //           child: Text(
-                                    //             val,
-                                    //           ),
-                                    //         );
-                                    //       },
-                                    //     ).toList(),
-                                    //     onChanged: (val) async {
-                                    //       _painDropDownValue = val;
-                                    //       _pain.areaOnBodyPart = val;
-                                    //       curLogData.data.update(
-                                    //           'bodyPart', (value) => value);
-                                    //       // setState(
-                                    //       //       () {
-                                    //       //     _painAreaDropDownValue = val;
-                                    //       //     _pain.areaOnBodyPart = val;
-                                    //       //   },
-                                    //       // );
-                                    //     },
-                                    //   ),
-                                    // ),
                                     SizedBox(height: size.height * 0.01),
                                     Container(
                                       width: size.width * 0.40,
                                       child: TextFormField(
+                                        keyboardType: TextInputType.number,
                                         initialValue:
                                             '${curLogData.data['painLevel'].round()}',
                                         decoration: InputDecoration(
@@ -297,30 +297,73 @@ class PainLogBox extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: size.height * 0.01),
-                                    Container(
-                                      width: size.width * 0.40,
-                                      child: TextFormField(
-                                        initialValue:
-                                            '${curLogData.data['painDuration']}',
-                                        decoration: InputDecoration(
-                                            labelText: 'Pain Duration'),
-                                        validator: (value) {
-                                          if (int.parse(value) < 0) {
-                                            String msg = 'Invalid';
-                                            return msg;
-                                          }
-                                          // return "ok";
-                                        },
-                                        onSaved:
 
-                                            // (val) => curLogData.data
-                                            // .update('painDuration',
-                                            //     (value) => int.parse(value))
-                                            (val) => _pain.painDuration =
-                                                int.parse(val),
-                                        //setState(() => _pain.day = int.parse(val))
-                                      ),
-                                    ),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Container(
+                                            width: size.width * 0.20,
+                                            child: TextFormField(
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              initialValue:
+                                                  '${curLogData.data['painDuration']}',
+                                              decoration: InputDecoration(
+                                                  labelText: 'Duration'),
+                                              validator: (value) {
+                                                if (int.parse(value) < 0) {
+                                                  String msg = 'Invalid';
+                                                  return msg;
+                                                }
+                                                // return "ok";
+                                              },
+                                              onSaved: (val) =>
+                                                  _pain.painDuration =
+                                                      int.parse(val),
+                                              //setState(() => _pain.day = int.parse(val))
+                                            ),
+                                          ),
+                                          Text(_pain.durationType)
+                                        ]),
+
+                                    //durationType
+                                    // Container(
+                                    //   width: size.width * 0.4,
+                                    //   child: DropdownButton(
+                                    //     // hint: _durationTypeDropDownValue == null
+                                    //     //     ? Text('Duration type')
+                                    //     //     : Text(
+                                    //     //   _durationTypeDropDownValue,
+                                    //     //   style: TextStyle(
+                                    //     //       color: Colors.blue,
+                                    //     //       fontWeight: FontWeight.bold),
+                                    //     // ),
+                                    //     hint: Text(_pain.durationType,
+                                    //         style: TextStyle(
+                                    //             color: Colors.blue,
+                                    //             fontWeight: FontWeight.bold)),
+                                    //     isExpanded: true,
+                                    //     iconSize: 30.0,
+                                    //     style: TextStyle(color: Colors.blue),
+                                    //     items:
+                                    //         ['seconds', 'minutes', 'hours'].map(
+                                    //       (val) {
+                                    //         _pain.durationType = val;
+                                    //         return DropdownMenuItem<String>(
+                                    //           value: val,
+                                    //           child: Text(
+                                    //             val,
+                                    //           ),
+                                    //         );
+                                    //       },
+                                    //     ).toList(),
+                                    //     onChanged: (val) {
+                                    //       _durationTypeDropDownValue = val;
+                                    //       _pain.durationType = val;
+                                    //     },
+                                    //   ),
+                                    // ),
                                     SizedBox(height: size.height * 0.02),
                                     TextFormField(
                                       initialValue:
@@ -372,6 +415,7 @@ class PainLogBox extends StatelessWidget {
                                             //'areaOnBodyPart': _painAreaDropDownValue,
                                             'painLevel': _pain.painLevel,
                                             'painDuration': _pain.painDuration,
+                                            'durationType': _pain.durationType,
                                             'otherSymptoms':
                                                 _pain.otherSymptoms,
                                             'medications': _pain.medication,
@@ -383,45 +427,25 @@ class PainLogBox extends StatelessWidget {
                                               "Updated Pain log ID ${logID}"))
                                           .catchError((error) =>
                                               print(error.toString()));
-
-                                      // Fluttertoast.showToast(
-                                      //   msg: "Pain log updated",
-                                      //   toastLength: Toast.LENGTH_SHORT,
-                                      //   gravity: ToastGravity.BOTTOM,
-                                      //   timeInSecForIos: 3,
-                                      //   backgroundColor: Colors.black,
-                                      //   textColor: Colors.white,
-                                      // );
-
-                                      // Scaffold.of(context).showSnackBar(
-                                      //     SnackBar(
-                                      //         content:
-                                      //             Text('Updated pain log')));
-
-                                      //_pain.save();
-                                      // final FirebaseUser curUser =
-                                      // await auth.currentUser();
-                                      //
-                                      // await usersCol
-                                      //     .document(curUser.uid)
-                                      //     .collection("painLogs")
-                                      //     .add({
-                                      //   'bodyPart': _painDropDownValue,
-                                      //   'areaOnBodyPart': _painAreaDropDownValue,
-                                      //   'painLevel': _pain.painLevel,
-                                      //   'painDuration': _pain.painDuration,
-                                      //   'otherSymptoms': _pain.otherSymptoms,
-                                      //   'medications': _pain.medication,
-                                      //   'day': _pain.day,
-                                      //   'month': _pain.month,
-                                      //   'year': _pain.year,
-                                      // })
-                                      //     .then((value) => print("New pain log added"))
-                                      //     .catchError(
-                                      //         (error) => print(error.toString()));
-                                      //
-                                      // _showDialog(context);
-                                      // print(_painDropDownValue);
+                                      Navigator.of(context).pop();
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('Saved'),
+                                              content: Text('Pain Log updated'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                    onPressed: () {
+                                                      // Navigator.of(context)
+                                                      //     .pop();
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text('OK'))
+                                              ],
+                                            );
+                                          });
                                     }
                                   },
                                   child: Text('Save'))),
