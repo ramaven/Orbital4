@@ -63,19 +63,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // another screen onto navigator stack
             }),
         actions: [
-          IconButton(
-              icon: Icon(Icons.save_outlined),
-              onPressed: () {
-                // write code to send the details to the firebase
-                // database and save it there/ update
-              })
+          // IconButton(
+          //     icon: Icon(Icons.save_outlined),
+          //     onPressed: () {
+          //       // write code to send the details to the firebase
+          //       // database and save it there/ update
+          //     })
         ],
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
-            Text("To be completed by 1st August"),
+            //Text("To be completed by 1st August"),
             SizedBox(height: size.height * 0.04),
             Row(
               children: [

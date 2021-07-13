@@ -99,7 +99,7 @@ showError(String errormessage, BuildContext context) {
           title: Text('ERROR'),
           content: Text(errormessage),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

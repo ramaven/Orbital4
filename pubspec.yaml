@@ -44,6 +44,7 @@ dependencies:
   searchfield: ^0.5.2
   geojson: ^1.0.0
   multi_select_flutter: ^4.0.0
+  url_launcher: ^6.0.5
 
 dev_dependencies:
   flutter_test:

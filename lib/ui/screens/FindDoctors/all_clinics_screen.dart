@@ -17,8 +17,10 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     List<Clinic> clinicList = [];
+    int clinicID = 0;
     for (Map<String, Object> clinic in data) {
       clinicList.add(Clinic(
+          clinicID,
           clinic['Description'],
           clinic['Contact'],
           clinic['Postal'],
@@ -28,7 +30,9 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
           clinic['Street'],
           clinic['Building'],
           clinic['Coordinates']));
+      clinicID++;
     }
+    print(clinicID);
 
     return
         // Container(
@@ -191,9 +195,11 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
                   Icons.add_circle_outline,
                   //size: 30,
                 ),
-                onPressed: () {
+                onPressed: () async {
                   //ADD TO SAVED DOCS
                   // ADD TO FIREBASE
+
+                  // 1165 entries in clinics dataset
                 })
           ]),
         ),

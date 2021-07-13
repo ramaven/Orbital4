@@ -52,8 +52,9 @@ class PainLogBox extends StatelessWidget {
     String empty = "";
 
     return Container(
+      padding: const EdgeInsets.all(8.0),
       width: size.width * 0.8,
-      height: size.height * 0.12,
+      //height: size.height * 0.14,
       margin: const EdgeInsets.all((10)),
       decoration: BoxDecoration(
         color: Colors.lightBlue[50],
@@ -136,6 +137,7 @@ class PainLogBox extends StatelessWidget {
             }),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
                 "Area: ${areaOnBodyPart != null ? areaOnBodyPart : empty} $bodyPart, Pain Level: $painLevel",
@@ -144,7 +146,9 @@ class PainLogBox extends StatelessWidget {
             Text("Date: $date"),
             Text("Duration: $duration $durationType"),
             Text("Medicines taken: $medicine"),
-            Text("Other symptoms: $otherSymptoms"),
+            Container(
+                width: size.width * 0.5,
+                child: Text("Other symptoms: $otherSymptoms")),
           ],
         ),
         IconButton(
