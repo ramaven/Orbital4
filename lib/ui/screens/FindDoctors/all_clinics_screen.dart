@@ -11,6 +11,8 @@ class AllClinicsScreen extends StatefulWidget {
 }
 
 class _AllClinicsScreenState extends State<AllClinicsScreen> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -32,9 +34,14 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
         // Container(
         // child:
         Expanded(
-      child: ListView(
-        padding: const EdgeInsets.all(8),
-        children: generateClinicListings(clinicList, size),
+      child: Scrollbar(
+        isAlwaysShown: true,
+        controller: _scrollController,
+        child: ListView(
+          controller: _scrollController,
+          padding: const EdgeInsets.all(8),
+          children: generateClinicListings(clinicList, size),
+        ),
       ),
     );
     // );
@@ -55,6 +62,7 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
     // print(coords[1]);
 
     return Container(
+      //padding: const EdgeInsets.all(3),
       child: Column(children: [
         Container(
           width: size.width * 0.9,
@@ -64,84 +72,114 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
           ),
           padding: const EdgeInsets.all(8),
           child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            SizedBox(
+              width: 5,
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                  clinic.name,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Container(
+                  width: size.width * 0.7,
+                  child: Text(
+                    clinic.name,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
                 ),
-                Text(clinic.street),
-                TextButton(
-                    onPressed: () {
-                      // show a pop up that displays addresss and map
-                      return showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(clinic.name),
-                              content: Column(
-                                  //mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Address",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                        "Block ${clinic.block}, ${clinic.street}"),
-                                    Text(
-                                        '${clinic.floor}-${clinic.unit} ${clinic.building}'),
-                                    Text("Singapore ${clinic.postal}"),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      "Contact:",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(clinic.contact),
-                                    SizedBox(height: 10),
-                                    Expanded(
-                                      //child: SingleChildScrollView(
-                                      child: Container(
-                                        height: size.height * 0.8,
-                                        child: GoogleMap(
-                                          markers: [
-                                            Marker(
-                                                markerId: MarkerId(clinic.name),
-                                                position: LatLng(
-                                                    coords[1], coords[0]))
-                                          ].toSet(),
-                                          initialCameraPosition: CameraPosition(
-                                              bearing: 192.8334901395799,
-                                              // target:
-                                              //     LatLng(1.319728, 103.8421),
-                                              target:
-                                                  LatLng(coords[1], coords[0]),
-                                              tilt: 59.440717697143555,
-                                              zoom: 17),
-                                        ),
+                SizedBox(height: 1),
+                Text(
+                  clinic.street,
+                  style: TextStyle(fontSize: 11),
+                ),
+                SizedBox(height: 15),
+                SizedBox(
+                  height: 30,
+                  child: TextButton(
+                      onPressed: () {
+                        // show a pop up that displays addresss and map
+                        return showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(clinic.name),
+                                content: Column(
+                                    //mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Address",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      // ),
-                                    )
-                                  ]),
-                              actions: <Widget>[
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      //print(coords);
-                                    },
-                                    child: Text('OK'))
-                              ],
-                            );
-                          });
-                    },
-                    child: Text("More details"))
+                                      Text(
+                                          "Block ${clinic.block}, ${clinic.street}"),
+                                      Text(
+                                          '${clinic.floor}-${clinic.unit} ${clinic.building}'),
+                                      Text("Singapore ${clinic.postal}"),
+                                      SizedBox(height: 10),
+                                      Text(
+                                        "Contact:",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(clinic.contact),
+                                      SizedBox(height: 10),
+                                      Expanded(
+                                        //child: SingleChildScrollView(
+                                        child: Container(
+                                          height: size.height * 0.8,
+                                          child: GoogleMap(
+                                            markers: [
+                                              Marker(
+                                                  markerId:
+                                                      MarkerId(clinic.name),
+                                                  position: LatLng(
+                                                      coords[1], coords[0]))
+                                            ].toSet(),
+                                            initialCameraPosition:
+                                                CameraPosition(
+                                                    bearing: 192.8334901395799,
+                                                    // target:
+                                                    //     LatLng(1.319728, 103.8421),
+                                                    target: LatLng(
+                                                        coords[1], coords[0]),
+                                                    tilt: 59.440717697143555,
+                                                    zoom: 17),
+                                          ),
+                                        ),
+                                        // ),
+                                      )
+                                    ]),
+                                actions: <Widget>[
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        //print(coords);
+                                      },
+                                      child: Text('OK'))
+                                ],
+                              );
+                            });
+                      },
+                      child: Text(
+                        "More details",
+                        style: TextStyle(color: Colors.blue[900], fontSize: 12),
+                      ),
+                      style: ButtonStyle(
+                          shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  side: BorderSide(color: Colors.blue[900]))))),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 // Text("Block ${clinic.block}, ${clinic.street}"),
                 // Text('${clinic.floor}-${clinic.unit} ${clinic.building}'),
                 // Text("Singapore ${clinic.postal}"),
@@ -149,14 +187,17 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
               ],
             ),
             IconButton(
-                icon: Icon(Icons.add_circle_outline),
+                icon: Icon(
+                  Icons.add_circle_outline,
+                  //size: 30,
+                ),
                 onPressed: () {
                   //ADD TO SAVED DOCS
                   // ADD TO FIREBASE
                 })
           ]),
         ),
-        SizedBox(height: 15),
+        SizedBox(height: 25),
       ]),
     );
   }

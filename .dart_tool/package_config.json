@@ -314,6 +314,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "multi_select_flutter",
+      "rootUri": "file:///Users/rama/flutter/.pub-cache/hosted/pub.dartlang.org/multi_select_flutter-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "nested",
       "rootUri": "file:///Users/rama/flutter/.pub-cache/hosted/pub.dartlang.org/nested-1.0.0",
       "packageUri": "lib/",
@@ -494,7 +500,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-07-12T17:37:52.755310Z",
+  "generated": "2021-07-13T05:49:51.420249Z",
   "generator": "pub",
   "generatorVersion": "2.12.3"
 }

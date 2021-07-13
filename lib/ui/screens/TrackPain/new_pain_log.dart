@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:direct_select/direct_select.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:searchfield/searchfield.dart';
 import 'Components/medicine_list.dart' as med;
+import 'Components/symptom_list.dart' as symptom;
 
 import 'Components/pain_model.dart';
 
@@ -24,6 +26,10 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
 
   CollectionReference usersCol = Firestore.instance.collection("users");
   final FirebaseAuth auth = FirebaseAuth.instance;
+
+  final _items =
+      symptom.list.map((symp) => MultiSelectItem<String>(symp, symp)).toList();
+  List<dynamic> _selectedSymptoms = [];
 
   @override
   Widget build(BuildContext context) {
@@ -346,18 +352,11 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                                   _pain.durationType = val;
                                 },
                               );
+                              print(val);
                             },
                           ),
                         ),
                       ]),
-                  SizedBox(height: size.height * 0.02),
-
-                  // Enter other symptoms
-                  TextFormField(
-                      decoration: InputDecoration(
-                          labelText: 'Other symptoms eg. nausea, dizziness'),
-                      onSaved: (val) =>
-                          setState(() => _pain.otherSymptoms = val)),
                   SizedBox(height: size.height * 0.02),
 
                   // Enter medications
@@ -395,13 +394,71 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                   ),
 
                   SizedBox(height: size.height * 0.02),
+
+                  // Enter other symptoms
+
+                  // TextFormField(
+                  //     decoration: InputDecoration(
+                  //         labelText: 'Other symptoms eg. nausea, dizziness'),
+                  //     onSaved: (val) =>
+                  //         setState(() => _pain.otherSymptoms = val)),
+
+                  Container(
+                    width: size.width * 0.9,
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue[50].withOpacity(0.4),
+                      //color: Theme.of(context).primaryColor.withOpacity(.4),
+                      border: Border.all(
+                        color: Colors.grey[200],
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        MultiSelectBottomSheetField(
+                          initialChildSize: 0.4,
+                          listType: MultiSelectListType.CHIP,
+                          searchable: true,
+                          buttonText: Text("Other Symptoms"),
+                          title: Text("Symptoms"),
+                          items: _items,
+                          onConfirm: (values) {
+                            _selectedSymptoms = values;
+                            setState(() {
+                              _pain.otherSymptoms = values.toString();
+                            });
+                          },
+                          chipDisplay: MultiSelectChipDisplay(
+                            onTap: (value) {
+                              setState(() {
+                                _selectedSymptoms.remove(value);
+                              });
+                            },
+                          ),
+                        ),
+                        (_selectedSymptoms == null || _selectedSymptoms.isEmpty)
+                            ? Container(
+                                padding: EdgeInsets.all(10),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "None selected",
+                                  style: TextStyle(color: Colors.black54),
+                                ))
+                            : Container(),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: size.height * 0.02),
+
                   Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 16.0),
                       child: ElevatedButton(
                           onPressed: () async {
                             final form = _formKey.currentState;
-                            if (form.validate()) {
+                            if (form.validate() && _painDropDownValue != null) {
                               form.save();
                               //_pain.save();
                               final FirebaseUser curUser =
@@ -415,7 +472,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                                     'areaOnBodyPart': _painAreaDropDownValue,
                                     'painLevel': _pain.painLevel,
                                     'painDuration': _pain.painDuration,
-                                    'durationType': _pain.durationType,
+                                    'durationType': _durationTypeDropDownValue,
                                     'otherSymptoms': _pain.otherSymptoms,
                                     'medications': _pain.medication,
                                     'day': _pain.day,

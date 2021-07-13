@@ -30,7 +30,7 @@ class _FindDoctorsBackgroundState extends State<FindDoctorsBackground> {
                 });
               },
               child: Text(
-                " All Clinics ",
+                " All clinics ",
                 style: TextStyle(color: Colors.black),
               ),
               style: ButtonStyle(
