@@ -11,6 +11,8 @@ class Profile {
   List<Map<String, dynamic>> painLogs;
   List<String> painLogsIds;
 
+  String savedClinics;
+
   // Profile details
   //String username = 'NIL';
   String email;
@@ -59,6 +61,7 @@ class Profile {
         existingConditions = userProfileInfo['existingConditions'];
         drugAllergies = userProfileInfo['drugAllergies'];
         familyMedicalHistory = userProfileInfo['familyMedicalHistory'];
+        savedClinics = userProfileInfo['savedClinics'];
       } else {
         print('Document does not exist on the database');
       }

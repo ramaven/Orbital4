@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:login_register_auth/globals.dart' as globals;
 
 import 'clinic_model.dart';
 
@@ -12,6 +15,20 @@ class AllClinicsScreen extends StatefulWidget {
 
 class _AllClinicsScreenState extends State<AllClinicsScreen> {
   final ScrollController _scrollController = ScrollController();
+  String savedClinics;
+  String userID;
+
+  CollectionReference usersCol = Firestore.instance.collection("users");
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    setState(() {
+      globals.Userprofile.get();
+      savedClinics = globals.Userprofile.savedClinics;
+      userID = globals.Userprofile.uid;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -199,6 +216,49 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
                   //ADD TO SAVED DOCS
                   // ADD TO FIREBASE
 
+                  String newSavedClinics =
+                      replaceCharAt(savedClinics, clinic.clinicID, "1");
+
+                  final FirebaseUser curUser = await auth.currentUser();
+
+                  usersCol.document(curUser.uid).get().then((docSnapshot) => {
+                        if (docSnapshot.exists)
+                          {
+                            usersCol
+                                .document(curUser.uid)
+                                .setData({'savedClinics': newSavedClinics},
+                                    merge: true)
+                                .then((value) =>
+                                    print("Added clinics to saved clinics"))
+                                .catchError((error) => print(error.toString()))
+                          }
+                        else
+                          {
+                            usersCol
+                                .document(curUser.uid)
+                                .setData({'savedClinics': newSavedClinics})
+                                .then((value) =>
+                                    print("Added clinics to saved clinics"))
+                                .catchError((error) => print(error.toString()))
+                          }
+                      });
+
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Added Clinic'),
+                          content: Text('Added clinic to Saved Clinics'),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('OK'))
+                          ],
+                        );
+                      });
+
                   // 1165 entries in clinics dataset
                 })
           ]),
@@ -207,6 +267,12 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
       ]),
     );
   }
+}
+
+String replaceCharAt(String oldString, int index, String newChar) {
+  return oldString.substring(0, index) +
+      newChar +
+      oldString.substring(index + 1);
 }
 
 var data = [

@@ -183,8 +183,10 @@ class _CommunityBackgroundState extends State<CommunityBackground> {
                       backgroundColor: Colors.teal,
                       onSurface: Colors.grey,
                     ),
-                    onPressed: () {
-                      launch(news.link);
+                    onPressed: () async {
+                      await canLaunch(news.link)
+                          ? await launch(news.link)
+                          : throw 'could not launch url';
                     }),
 
                 SizedBox(height: 15),

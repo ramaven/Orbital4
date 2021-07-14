@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:login_register_auth/ui/screens/FindDoctors/all_clinics_screen.dart';
 import 'package:login_register_auth/ui/screens/FindDoctors/map_all_screen.dart';
 import 'package:login_register_auth/ui/screens/FindDoctors/saved_clinics_screen.dart';
+import 'package:login_register_auth/globals.dart' as globals;
 
 class FindDoctorsBackground extends StatefulWidget {
   const FindDoctorsBackground({Key key}) : super(key: key);
@@ -27,6 +28,7 @@ class _FindDoctorsBackgroundState extends State<FindDoctorsBackground> {
               onPressed: () {
                 setState(() {
                   screen = 0;
+                  globals.Userprofile.get();
                 });
               },
               child: Text(
