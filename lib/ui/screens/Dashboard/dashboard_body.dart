@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:login_register_auth/ui/screens/Dashboard/components/bar_chart_pain.dart';
+import 'package:login_register_auth/ui/screens/Dashboard/components/medications.dart';
 import 'package:login_register_auth/ui/screens/Dashboard/components/pain_level.dart';
 import 'package:login_register_auth/ui/screens/Dashboard/components/pain_logs.dart';
+import 'package:login_register_auth/ui/screens/Dashboard/components/symptoms.dart';
 import 'package:login_register_auth/ui/screens/Dashboard/components/testingPainLog/line_chart.dart';
 
 import 'components/activity.dart';
@@ -79,11 +81,23 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
         //   height: 20,
         // ),
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          PainComposition(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              PainComposition(),
+              SymptomsDashboard(),
+            ],
+          ),
           SizedBox(
             height: 20,
           ),
-          PainLevel(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              PainLevel(),
+              MedicineDashboard(),
+            ],
+          ),
         ]),
         SizedBox(
           height: 20,
@@ -97,8 +111,8 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
         SizedBox(
           height: 20,
         ),
-        MedicineRelief(),
-        Activity(),
+        // MedicineRelief(),
+        // Activity(),
       ],
     );
     //return new SizedBox(

@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_register_auth/globals.dart' as globals;
 import 'dart:collection';
 
@@ -36,22 +37,26 @@ class _PainCompositionState extends State<PainComposition> {
     return Column(children: [
       Container(
         // padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child: Text(" Pain Composition",
-            textAlign: TextAlign.left,
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        child: Row(children: [
+          Text(" Pain Composition",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontWeight: FontWeight.bold)),
+        ]),
       ),
       // padding: new EdgeInsets.all(10.0),
       Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        color: Color(0xFFA8E4EC),
+        //color: Colors.black,
+        color: Colors.white,
+        //Color(0xFFA8E4EC),
         elevation: 8,
         child: Stack(
           children: [
             SizedBox(
-              height: 200,
-              width: 200,
+              height: 180,
+              width: 180,
               child: PieChart(
                 PieChartData(
                   sectionsSpace: 0,

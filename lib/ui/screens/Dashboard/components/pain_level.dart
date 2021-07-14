@@ -45,13 +45,15 @@ class _PainLevelState extends State<PainLevel> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        color: Color(0xFFA8E4EC),
+        //color: Colors.black,
+        color: Colors.white,
+        //Color(0xFFA8E4EC),
         elevation: 8,
         child: Stack(
           children: [
             SizedBox(
-              height: 200,
-              width: 200,
+              height: 180,
+              width: 180,
               child: PieChart(
                 PieChartData(
                   sectionsSpace: 0,
