@@ -34,49 +34,67 @@ class _PainCompositionState extends State<PainComposition> {
         painLogs = globals.Userprofile.painLogs;
       });
     });
-    return Column(children: [
-      Container(
-        // padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child: Row(children: [
-          Text(" Pain Composition",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontWeight: FontWeight.bold)),
-        ]),
-      ),
-      // padding: new EdgeInsets.all(10.0),
-      Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
         //color: Colors.black,
+        //color:
         color: Colors.white,
         //Color(0xFFA8E4EC),
-        elevation: 8,
-        child: Stack(
-          children: [
-            SizedBox(
-              height: 180,
-              width: 180,
-              child: PieChart(
-                PieChartData(
-                  sectionsSpace: 0,
-                  centerSpaceRadius: 35,
-                  // startDegreeOffset: -90,
-                  // List<PieChartSectionData> paiChartSelectionDatas
-                  // createPieChartSectionData(painLogs) returns list of ^
-                  sections: createPieChartSectionData(painLogs),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(children: [
+        Container(
+          // padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          child: Row(children: [
+            Text(" Pain Composition",
+                textAlign: TextAlign.left,
+                style: TextStyle(fontWeight: FontWeight.bold)),
+          ]),
+        ),
+        // padding: new EdgeInsets.all(10.0),
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          //color: Colors.black,
+          color: Colors.white,
+          //Color(0xFFA8E4EC),
+          elevation: 0,
+          child: Stack(
+            children: [
+              SizedBox(
+                height: 150,
+                width: 150,
+                child: PieChart(
+                  PieChartData(
+                    sectionsSpace: 0,
+                    centerSpaceRadius: 35,
+                    // startDegreeOffset: -90,
+                    // List<PieChartSectionData> paiChartSelectionDatas
+                    // createPieChartSectionData(painLogs) returns list of ^
+                    sections: createPieChartSectionData(painLogs),
+                  ),
                 ),
               ),
-            ),
-            Positioned.fill(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Positioned.fill(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    ]);
+      ]),
+    );
   }
 
 // START OF METHOD TO GET DATA
@@ -171,11 +189,11 @@ class _PainCompositionState extends State<PainComposition> {
 
     // The 5 colours to use in the pie chart
     var colorArr = [
-      Colors.pinkAccent,
-      Color(0xFF26E5FF), // Blue
-      Color(0xFFFFCF26), // Yellow
-      Color(0xFFEE2727), // Red
-      Colors.green
+      Colors.pink[200],
+      Colors.yellow[300],
+      Colors.green[200],
+      Colors.purple[200],
+      Colors.blue[200],
     ];
 
     // Convert map to list, and add colour in for only the top 5 frequency.

@@ -34,25 +34,25 @@ class _SymptomsDashboardState extends State<SymptomsDashboard> {
     });
 
     return Column(children: [
-      Text(" Symptoms",
-          textAlign: TextAlign.left,
-          style: TextStyle(fontWeight: FontWeight.bold)),
-      SizedBox(height: 3),
+      // Text(" Symptoms",
+      //     textAlign: TextAlign.left,
+      //     style: TextStyle(fontWeight: FontWeight.bold)),
+      // SizedBox(height: 3),
       Container(
-        width: 140,
-        height: 180,
+        width: 150,
+        height: 195,
         padding: const EdgeInsets.all(10),
         // color: Colors.black,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
           //color: Colors.black,
           //color:
-          color: Colors.blue[900],
+          color: Colors.white,
           //Color(0xFFA8E4EC),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
               blurRadius: 7,
               offset: Offset(0, 3), // changes position of shadow
             ),
@@ -77,20 +77,24 @@ class _SymptomsDashboardState extends State<SymptomsDashboard> {
 
   List<Widget> stringListToTextList(List<String> ls) {
     List<Widget> texts = [
-      Text("Most Frequent",
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+      Text("Frequent Symptoms",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.bold)),
+      // Text("Most Frequent",
+      //     style: TextStyle(
+      //         color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16)),
       SizedBox(
-        height: 10,
+        height: 20,
       ),
     ];
 
     for (String word in ls) {
       texts.add(Text(word,
+          textAlign: TextAlign.left,
           style: TextStyle(
-            color: Colors.white,
-            //Colors.blue[100],
-          )));
+              color: Colors.blue, fontSize: 14, fontWeight: FontWeight.bold
+              //Colors.blue[100],
+              )));
       texts.add(SizedBox(
         height: 4,
       ));

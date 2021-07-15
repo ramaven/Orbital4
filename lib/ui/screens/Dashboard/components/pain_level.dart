@@ -33,47 +33,65 @@ class _PainLevelState extends State<PainLevel> {
         painLogs = globals.Userprofile.painLogs;
       });
     });
-    return Column(children: [
-      Container(
-        // padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child: Text(" Pain Level Distribution",
-            textAlign: TextAlign.left,
-            style: TextStyle(fontWeight: FontWeight.bold)),
-      ),
-      // padding: new EdgeInsets.all(10.0),
-      Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
         //color: Colors.black,
+        //color:
         color: Colors.white,
         //Color(0xFFA8E4EC),
-        elevation: 8,
-        child: Stack(
-          children: [
-            SizedBox(
-              height: 180,
-              width: 180,
-              child: PieChart(
-                PieChartData(
-                  sectionsSpace: 0,
-                  centerSpaceRadius: 35,
-                  // startDegreeOffset: -90,
-                  // List<PieChartSectionData> paiChartSelectionDatas
-                  // createPieChartSectionData(painLogs) returns list of ^
-                  sections: createPieChartSectionData(painLogs),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(children: [
+        Container(
+          // padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          child: Text(" Pain Level Distribution",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontWeight: FontWeight.bold)),
+        ),
+        // padding: new EdgeInsets.all(10.0),
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          //color: Colors.black,
+          color: Colors.white,
+          //Color(0xFFA8E4EC),
+          elevation: 0,
+          child: Stack(
+            children: [
+              SizedBox(
+                height: 150,
+                width: 150,
+                child: PieChart(
+                  PieChartData(
+                    sectionsSpace: 0,
+                    centerSpaceRadius: 35,
+                    // startDegreeOffset: -90,
+                    // List<PieChartSectionData> paiChartSelectionDatas
+                    // createPieChartSectionData(painLogs) returns list of ^
+                    sections: createPieChartSectionData(painLogs),
+                  ),
                 ),
               ),
-            ),
-            Positioned.fill(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Positioned.fill(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    ]);
+      ]),
+    );
   }
 
 // START OF METHOD TO GET DATA
@@ -106,7 +124,8 @@ class _PainLevelState extends State<PainLevel> {
     // Total number of pain logs
     int totalLogs = painLogsFirebase.length;
 
-    var colorArr = [Colors.yellow, Colors.orange, Colors.red];
+    //var colorArr = [Colors.yellow[400], Colors.orange[300], Colors.red[300]];
+    var colorArr = [Colors.green[200], Colors.yellow[400], Colors.red[300]];
 
     var value = [lowCount, medCount, highCount];
     print(value);
