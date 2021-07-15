@@ -396,6 +396,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                     .familyMedicalHistory,
                                                 'savedClinics':
                                                     genSavedClinicsString(),
+                                                'savedNews':
+                                                    "00000000000000000000",
                                               })
                                               .then((value) =>
                                                   print("Profile info updated"))

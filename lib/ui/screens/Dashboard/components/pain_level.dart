@@ -69,8 +69,8 @@ class _PainLevelState extends State<PainLevel> {
           child: Stack(
             children: [
               SizedBox(
-                height: 150,
-                width: 150,
+                height: size.height * 0.2,
+                width: size.width * 0.39,
                 child: PieChart(
                   PieChartData(
                     sectionsSpace: 0,

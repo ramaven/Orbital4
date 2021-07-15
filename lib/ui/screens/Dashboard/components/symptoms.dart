@@ -39,8 +39,10 @@ class _SymptomsDashboardState extends State<SymptomsDashboard> {
       //     style: TextStyle(fontWeight: FontWeight.bold)),
       // SizedBox(height: 3),
       Container(
-        width: 150,
-        height: 195,
+        height: size.height * 0.254,
+        width: size.width * 0.39,
+        // width: 150,
+        // height: 195,
         padding: const EdgeInsets.all(10),
         // color: Colors.black,
         decoration: BoxDecoration(

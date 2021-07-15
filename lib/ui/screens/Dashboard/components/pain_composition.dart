@@ -28,6 +28,8 @@ class _PainCompositionState extends State<PainComposition> {
   Widget build(BuildContext context) {
     //refresh pain log data from firestore
     Size size = MediaQuery.of(context).size;
+    print(size.width);
+    print(size.height);
 
     globals.Userprofile.get().then((response) {
       setState(() {
@@ -72,8 +74,8 @@ class _PainCompositionState extends State<PainComposition> {
           child: Stack(
             children: [
               SizedBox(
-                height: 150,
-                width: 150,
+                height: size.height * 0.2,
+                width: size.width * 0.39,
                 child: PieChart(
                   PieChartData(
                     sectionsSpace: 0,

@@ -1,5 +1,6 @@
 class News {
   // String sourceName;
+  int newsID;
   String author;
   String title;
   String description;
@@ -7,5 +8,6 @@ class News {
   String imageLink;
   // String publishTime;
 
-  News(this.author, this.title, this.description, this.link, this.imageLink);
+  News(this.newsID, this.author, this.title, this.description, this.link,
+      this.imageLink);
 }

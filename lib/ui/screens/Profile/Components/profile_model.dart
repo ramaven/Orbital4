@@ -12,6 +12,7 @@ class Profile {
   List<String> painLogsIds;
 
   String savedClinics;
+  String savedNews;
 
   // Profile details
   //String username = 'NIL';
@@ -62,6 +63,7 @@ class Profile {
         drugAllergies = userProfileInfo['drugAllergies'];
         familyMedicalHistory = userProfileInfo['familyMedicalHistory'];
         savedClinics = userProfileInfo['savedClinics'];
+        savedNews = userProfileInfo['savedNews'];
       } else {
         print('Document does not exist on the database');
       }

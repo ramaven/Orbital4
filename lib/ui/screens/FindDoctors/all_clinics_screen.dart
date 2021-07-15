@@ -18,6 +18,9 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
   String savedClinics;
   String userID;
 
+  List<Clinic> originalClinics = [];
+  List<Clinic> filteredClinics = [];
+
   CollectionReference usersCol = Firestore.instance.collection("users");
   final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -27,6 +30,24 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
       globals.Userprofile.get();
       savedClinics = globals.Userprofile.savedClinics;
       userID = globals.Userprofile.uid;
+
+      int clinicID = 0;
+      for (Map<String, Object> clinic in data) {
+        print("hi");
+        originalClinics.add(Clinic(
+            clinicID,
+            clinic['Description'],
+            clinic['Contact'],
+            clinic['Postal'],
+            clinic['Block'],
+            clinic['Floor'],
+            clinic['Unit'],
+            clinic['Street'],
+            clinic['Building'],
+            clinic['Coordinates']));
+        clinicID++;
+      }
+      filteredClinics = originalClinics;
     });
   }
 
@@ -61,7 +82,7 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
         child: ListView(
           controller: _scrollController,
           padding: const EdgeInsets.all(8),
-          children: generateClinicListings(clinicList, size),
+          children: generateClinicListings(filteredClinics, size),
         ),
       ),
     );
@@ -69,7 +90,29 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
   }
 
   List<Container> generateClinicListings(List<Clinic> clinicList, Size size) {
-    List<Container> clinicBoxList = [];
+    List<Container> clinicBoxList = [
+      Container(
+        child: Column(children: [
+          TextField(
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(10.0),
+              hintText: 'Filter by clinic name or location',
+            ),
+            onChanged: (string) {
+              setState(() {
+                filteredClinics = originalClinics
+                    .where((u) => (u.name
+                            .toLowerCase()
+                            .contains(string.toLowerCase()) ||
+                        u.street.toLowerCase().contains(string.toLowerCase())))
+                    .toList();
+              });
+            },
+          ),
+          SizedBox(height: 15)
+        ]),
+      ),
+    ];
     for (Clinic clinic in clinicList) {
       clinicBoxList.add(makeClinicBox(clinic, size));
     }
