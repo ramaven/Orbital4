@@ -6,6 +6,7 @@ import 'package:login_register_auth/ui/screens/Dashboard/components/pain_level.d
 import 'package:login_register_auth/ui/screens/Dashboard/components/pain_logs.dart';
 import 'package:login_register_auth/ui/screens/Dashboard/components/symptoms.dart';
 import 'package:login_register_auth/ui/screens/Dashboard/components/testingPainLog/line_chart.dart';
+import 'package:login_register_auth/ui/screens/Dashboard/top_bodypart_average.dart';
 
 import 'components/activity.dart';
 import 'components/appointments.dart';
@@ -196,10 +197,15 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
                   }),
             ],
           ),
+          SizedBox(
+            height: 20,
+          ),
+          DurationDashboard(),
         ]),
         SizedBox(
           height: 20,
         ),
+
         // PainLogs(),
         // Container(
         //     width: size.width * 0.5,
