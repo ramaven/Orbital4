@@ -122,15 +122,16 @@ class _DurationDashboardState extends State<DurationDashboard> {
             ),
             // replace this space with the big number for duration
             Text(
-              (avgPainDurationList[counter] < 60
-                  ? (avgPainDurationList[counter].toString() + 'seconds')
-                  : (avgPainDurationList[counter] < 3600)
-                      ? (((avgPainDurationList[counter] / 60).round())
+              (avgPainDurationList[counter] / 100 < 60
+                  ? ((avgPainDurationList[counter] / 100).round().toString() +
+                      ' seconds')
+                  : (avgPainDurationList[counter] / 100 < 3600)
+                      ? (((avgPainDurationList[counter] / 6000).round())
                               .toString() +
-                          "minutes")
-                      : (((avgPainDurationList[counter] / 3600).round())
+                          " minutes")
+                      : (((avgPainDurationList[counter] / 360000).round())
                               .toString() +
-                          "hours")),
+                          " hours")),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -208,6 +209,8 @@ class _DurationDashboardState extends State<DurationDashboard> {
       newDuration = (mapDuration[bodyPart] +
               calculatePainDuration(painDuration, durationType))
           .round();
+      print("painduration in seconds");
+      print(newDuration);
 
       // Update
       mapFreq[bodyPart] = newFreq;
@@ -222,8 +225,13 @@ class _DurationDashboardState extends State<DurationDashboard> {
       counterSum += counters.elementAt(k);
     }
 
+    // print("mapfreqbodypartarr[3]");
+    // print(mapFreq[bodyPartArr[3]]);
     // Method to Calculate percentage
     int calculateAvgPainDuration(int totalDuration, int totalLogs) {
+      if (totalDuration == 0 || totalLogs == 0) {
+        return 0;
+      }
       return ((totalDuration) * 100 / (totalLogs)).round();
     }
 
@@ -231,9 +239,10 @@ class _DurationDashboardState extends State<DurationDashboard> {
     for (int i = 0; i < bodyPartArr.length; i++) {
       // Total duration for each bodypart
       int currDuration = mapDuration[bodyPartArr[i]];
+
       // Update with percentage
       mapDuration[bodyPartArr[i]] =
-          calculateAvgPainDuration(currDuration, counterSum);
+          calculateAvgPainDuration(currDuration, mapFreq[bodyPartArr[i]]);
 
       // Total freq for each bodypart
       int currCounter = mapFreq[bodyPartArr[i]];
