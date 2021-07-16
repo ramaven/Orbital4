@@ -139,10 +139,13 @@ class PainLogBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-                "Area: ${areaOnBodyPart != null ? areaOnBodyPart : empty} $bodyPart, Pain Level: $painLevel",
-                style: TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.bold)),
+            Container(
+              width: size.width * 0.5,
+              child: Text(
+                  "Area: ${areaOnBodyPart != null ? areaOnBodyPart : empty} $bodyPart, Pain Level: $painLevel",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold)),
+            ),
             Text("Date: $date"),
             Text("Duration: $duration $durationType"),
             Text("Medicines taken: $medicine"),

@@ -25,7 +25,7 @@ class Profile {
   int month = DateTime.now().month;
   int year = DateTime.now().year;
 
-  String gender = 'NIL';
+  String gender = 'Female';
   String citizenship = 'NIL';
 
   int height = 0;
@@ -66,6 +66,22 @@ class Profile {
         savedNews = userProfileInfo['savedNews'];
       } else {
         print('Document does not exist on the database');
+        usersCol.document(curUser.uid).setData({
+          'savedClinics': genSavedClinicsString(),
+          'firstName': firstName,
+          'lastName': lastName,
+          //'username': _profile.username,
+          'email': email,
+          'dayOfBirth': day,
+          'monthOfBirth': month,
+          'yearOfBirth': year,
+          'gender': gender,
+          'height': height,
+          'weight': weight,
+          'existingConditions': existingConditions,
+          'drugAllergies': drugAllergies,
+          'familyMedicalHistory': familyMedicalHistory,
+        }, merge: true);
       }
     });
 
@@ -111,4 +127,13 @@ class Profile {
   //
   //   painLogs = allPainLogsList;
   // }
+}
+
+String genSavedClinicsString() {
+  String savedClinics = "";
+
+  for (int i = 0; i < 1166; i++) {
+    savedClinics = savedClinics + "0";
+  }
+  return savedClinics;
 }

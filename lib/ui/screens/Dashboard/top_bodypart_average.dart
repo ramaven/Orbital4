@@ -40,7 +40,7 @@ class _DurationDashboardState extends State<DurationDashboard> {
     getData(painLogs);
 
     return Container(
-        height: 300,
+        height: 150,
         width: size.width * 0.9,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),

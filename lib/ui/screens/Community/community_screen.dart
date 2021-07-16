@@ -279,61 +279,61 @@ class _CommunityBackgroundState extends State<CommunityBackground> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Column(children: [
-      Container(
-        //color: Colors.blueGrey,
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          TextButton(
-              onPressed: () {
-                setState(() {
-                  screen = 0;
-                  globals.Userprofile.get();
-                });
-              },
-              child: Text(
-                " All News ",
-                style: TextStyle(color: Colors.black),
-              ),
-              style: ButtonStyle(
-                  backgroundColor: screen == 0
-                      ? MaterialStateProperty.all(Colors.lightBlue[100])
-                      : MaterialStateProperty.all(Colors.white),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.grey))))),
-          TextButton(
-              onPressed: () {
-                setState(() {
-                  screen = 1;
-                });
-              },
-              child: Text(" Saved News", style: TextStyle(color: Colors.black)),
-              style: ButtonStyle(
-                  backgroundColor: screen == 1
-                      ? MaterialStateProperty.all(Colors.lightBlue[100])
-                      : MaterialStateProperty.all(Colors.white),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.grey))))),
-          // TextButton(
-          //     onPressed: () {
-          //       setState(() {
-          //         screen = 2;
-          //       });
-          //     },
-          //     child:
-          //     Text("    Saved    ", style: TextStyle(color: Colors.black)),
-          //     style: ButtonStyle(
-          //         backgroundColor: screen == 2
-          //             ? MaterialStateProperty.all(Colors.lightBlue[100])
-          //             : MaterialStateProperty.all(Colors.white),
-          //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          //             RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.circular(18.0),
-          //                 side: BorderSide(color: Colors.grey))))),
-        ]),
-      ),
+      // Container(
+      //   //color: Colors.blueGrey,
+      //   child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      //     TextButton(
+      //         onPressed: () {
+      //           setState(() {
+      //             screen = 0;
+      //             globals.Userprofile.get();
+      //           });
+      //         },
+      //         child: Text(
+      //           " All News ",
+      //           style: TextStyle(color: Colors.black),
+      //         ),
+      //         style: ButtonStyle(
+      //             backgroundColor: screen == 0
+      //                 ? MaterialStateProperty.all(Colors.lightBlue[100])
+      //                 : MaterialStateProperty.all(Colors.white),
+      //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      //                 RoundedRectangleBorder(
+      //                     borderRadius: BorderRadius.circular(18.0),
+      //                     side: BorderSide(color: Colors.grey))))),
+      //     TextButton(
+      //         onPressed: () {
+      //           setState(() {
+      //             screen = 1;
+      //           });
+      //         },
+      //         child: Text(" Saved News", style: TextStyle(color: Colors.black)),
+      //         style: ButtonStyle(
+      //             backgroundColor: screen == 1
+      //                 ? MaterialStateProperty.all(Colors.lightBlue[100])
+      //                 : MaterialStateProperty.all(Colors.white),
+      //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      //                 RoundedRectangleBorder(
+      //                     borderRadius: BorderRadius.circular(18.0),
+      //                     side: BorderSide(color: Colors.grey))))),
+      //     // TextButton(
+      //     //     onPressed: () {
+      //     //       setState(() {
+      //     //         screen = 2;
+      //     //       });
+      //     //     },
+      //     //     child:
+      //     //     Text("    Saved    ", style: TextStyle(color: Colors.black)),
+      //     //     style: ButtonStyle(
+      //     //         backgroundColor: screen == 2
+      //     //             ? MaterialStateProperty.all(Colors.lightBlue[100])
+      //     //             : MaterialStateProperty.all(Colors.white),
+      //     //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      //     //             RoundedRectangleBorder(
+      //     //                 borderRadius: BorderRadius.circular(18.0),
+      //     //                 side: BorderSide(color: Colors.grey))))),
+      //   ]),
+      // ),
       SizedBox(
         height: size.height * 0.01,
       ),
