@@ -99,11 +99,11 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
               ),
               (globals.Userprofile.firstName == "NIL" ||
                       globals.Userprofile.firstName == null)
-                  ? Text("Please fill up your Profile",
+                  ? Text("Your profile details are not complete.",
                       style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue))
+                          color: Colors.red))
                   : Text("${globals.Userprofile.firstName}'s Pain Summary",
                       style: TextStyle(
                           fontSize: 18,

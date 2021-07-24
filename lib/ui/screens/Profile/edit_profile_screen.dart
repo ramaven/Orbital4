@@ -255,7 +255,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // Height
                 TextFormField(
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Height'),
+                    decoration: InputDecoration(labelText: 'Height (cm)'),
                     initialValue: '${_profile.height}',
                     validator: (value) {
                       if (value.isEmpty) {
@@ -270,7 +270,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // Weight
                 TextFormField(
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Weight'),
+                    decoration: InputDecoration(labelText: 'Weight (kg)'),
                     initialValue: '${_profile.weight}',
                     validator: (value) {
                       if (value.isEmpty) {

@@ -25,7 +25,7 @@ class Profile {
   int month = DateTime.now().month;
   int year = DateTime.now().year;
 
-  String gender = 'Female';
+  String gender = 'Select your gender';
   String citizenship = 'NIL';
 
   int height = 0;

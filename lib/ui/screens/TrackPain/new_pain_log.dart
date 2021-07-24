@@ -9,6 +9,8 @@ import 'Components/medicine_list.dart' as med;
 import 'Components/symptom_list.dart' as symptom;
 
 import 'Components/pain_model.dart';
+import 'dart:async';
+import 'package:intl/intl.dart';
 
 class NewPainLogScreen extends StatefulWidget {
   const NewPainLogScreen({Key key}) : super(key: key);
@@ -24,12 +26,29 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
   String _painAreaDropDownValue;
   String _durationTypeDropDownValue;
 
+  DateTime currentDate = DateTime.now();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+
   CollectionReference usersCol = Firestore.instance.collection("users");
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   final _items =
       symptom.list.map((symp) => MultiSelectItem<String>(symp, symp)).toList();
   List<dynamic> _selectedSymptoms = [];
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime pickedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != currentDate)
+      setState(() {
+        currentDate = pickedDate;
+        _pain.day = pickedDate.day;
+        _pain.month = pickedDate.month;
+        _pain.year = pickedDate.year;
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,57 +80,66 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
               child: SingleChildScrollView(
                 child: Column(children: [
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Container(
-                      width: size.width * 0.2,
-                      child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          initialValue: '${_pain.day}',
-                          decoration: InputDecoration(labelText: 'Day'),
-                          validator: (value) {
-                            if (int.parse(value) <= 0 ||
-                                int.parse(value) > 31) {
-                              String msg = 'Invalid';
-                              return msg;
-                            }
-                            // return "ok";
-                          },
-                          onSaved: (val) =>
-                              setState(() => _pain.day = int.parse(val))),
+                    Text(formatter.format(currentDate).toString()),
+                    SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () => _selectDate(context),
+                      child: Text('Select date'),
                     ),
-                    Container(
-                      width: size.width * 0.2,
-                      child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          initialValue: '${_pain.month}',
-                          decoration: InputDecoration(labelText: 'Month'),
-                          validator: (value) {
-                            if (int.parse(value) <= 0 ||
-                                int.parse(value) > 12) {
-                              String msg = 'Invalid';
-                              return msg;
-                            }
-                            // return "ok";
-                          },
-                          onSaved: (val) =>
-                              setState(() => _pain.month = int.parse(val))),
-                    ),
-                    Container(
-                      width: size.width * 0.2,
-                      child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          initialValue: '${_pain.year}',
-                          decoration: InputDecoration(labelText: 'Year'),
-                          validator: (value) {
-                            if (int.parse(value) < 1950 ||
-                                int.parse(value) > DateTime.now().year) {
-                              String msg = 'Invalid';
-                              return msg;
-                            }
-                            // return "ok";
-                          },
-                          onSaved: (val) =>
-                              setState(() => _pain.year = int.parse(val))),
-                    ),
+                    // Input day
+                    // Container(
+                    //   width: size.width * 0.2,
+                    //   child: TextFormField(
+                    //       keyboardType: TextInputType.number,
+                    //       initialValue: '${_pain.day}',
+                    //       decoration: InputDecoration(labelText: 'Day'),
+                    //       validator: (value) {
+                    //         if (int.parse(value) <= 0 ||
+                    //             int.parse(value) > 31) {
+                    //           String msg = 'Invalid';
+                    //           return msg;
+                    //         }
+                    //         // return "ok";
+                    //       },
+                    //       onSaved: (val) =>
+                    //           setState(() => _pain.day = int.parse(val))),
+                    // ),
+                    // Input month
+                    // Container(
+                    //   width: size.width * 0.2,
+                    //   child: TextFormField(
+                    //       keyboardType: TextInputType.number,
+                    //       initialValue: '${_pain.month}',
+                    //       decoration: InputDecoration(labelText: 'Month'),
+                    //       validator: (value) {
+                    //         if (int.parse(value) <= 0 ||
+                    //             int.parse(value) > 12) {
+                    //           String msg = 'Invalid';
+                    //           return msg;
+                    //         }
+                    //         // return "ok";
+                    //       },
+                    //       onSaved: (val) =>
+                    //           setState(() => _pain.month = int.parse(val))),
+                    // ),
+                    // Input year
+                    // Container(
+                    //   width: size.width * 0.2,
+                    //   child: TextFormField(
+                    //       keyboardType: TextInputType.number,
+                    //       initialValue: '${_pain.year}',
+                    //       decoration: InputDecoration(labelText: 'Year'),
+                    //       validator: (value) {
+                    //         if (int.parse(value) < 1950 ||
+                    //             int.parse(value) > DateTime.now().year) {
+                    //           String msg = 'Invalid';
+                    //           return msg;
+                    //         }
+                    //         // return "ok";
+                    //       },
+                    //       onSaved: (val) =>
+                    //           setState(() => _pain.year = int.parse(val))),
+                    // ),
                   ]),
 
                   SizedBox(height: size.height * 0.02),
@@ -460,6 +488,9 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                             final form = _formKey.currentState;
                             if (form.validate() && _painDropDownValue != null) {
                               form.save();
+                              // this command resets all the fields, but not the drop down list
+                              // hence decided to redirect to prev page upon log in instead
+                              // _formKey.currentState.reset();
                               //_pain.save();
                               final FirebaseUser curUser =
                                   await auth.currentUser();

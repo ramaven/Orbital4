@@ -251,10 +251,13 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
               ],
             ),
             IconButton(
-                icon: Icon(
-                  Icons.add_circle_outline,
-                  //size: 30,
-                ),
+                icon: Icon(Icons.bookmark,
+                    // color: Theme.of(context).primaryColor
+                    // color: Color(0x00000000)
+                    color: Color(0xFFFFFFFF)
+                    // Icons.add_circle_outline,
+                    //size: 30,
+                    ),
                 onPressed: () async {
                   //ADD TO SAVED DOCS
                   // ADD TO FIREBASE
