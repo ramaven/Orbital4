@@ -33,6 +33,7 @@ class AuthBase {
                   FlatButton(
                       onPressed: () {
                         Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacementNamed('login');
                       },
                       child: Text('OK'))
                 ],

@@ -73,13 +73,17 @@ class _DurationDashboardState extends State<DurationDashboard> {
         height: 8,
       ),
       Container(
+        //width: size.width * 0.2,
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           SizedBox(
             width: 15,
           ),
-          Text(
-            "Average Pain Duration Per Body Part",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          Container(
+            width: size.width * 0.7,
+            child: Text(
+              "Average Pain Duration Per Body Part",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
           ),
         ]),
       ),

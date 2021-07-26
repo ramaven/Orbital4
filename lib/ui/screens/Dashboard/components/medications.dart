@@ -174,7 +174,7 @@ List<String> medicineList = [
   "Tramadol",
   "Morphine",
   "Diclofenac",
-  "Asprin",
+  "Aspirin",
   "Naproxen",
   "Dihydrocodeine",
   "Oxycodone",

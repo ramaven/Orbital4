@@ -165,8 +165,10 @@ class _AllNewsScreenState extends State<AllNewsScreen> {
                 ),
 
                 TextButton(
-                    child:
-                        Text('Click here to read this article in your browser'),
+                    child: Container(
+                        width: size.width * 0.6,
+                        child: Text(
+                            'Click here to read this article in your browser')),
                     style: TextButton.styleFrom(
                       primary: Colors.white,
                       backgroundColor: Colors.teal,

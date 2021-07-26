@@ -159,6 +159,13 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
                   clinic.street,
                   style: TextStyle(fontSize: 11),
                 ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  clinic.contact,
+                  style: TextStyle(fontSize: 11),
+                ),
                 SizedBox(height: 15),
                 SizedBox(
                   height: 30,
@@ -252,7 +259,7 @@ class _AllClinicsScreenState extends State<AllClinicsScreen> {
             ),
             IconButton(
                 icon: Icon(
-                  Icons.add_circle_outline,
+                  Icons.bookmark_border_outlined,
                   //size: 30,
                 ),
                 onPressed: () async {

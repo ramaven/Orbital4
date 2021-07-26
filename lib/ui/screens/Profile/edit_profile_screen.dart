@@ -129,12 +129,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   initialValue: '${_profile.email}',
                 ),
                 SizedBox(height: size.height * 0.02),
+                Row(children: [
+                  SizedBox(
+                    width: size.width * 0.05,
+                  ),
+                  Text(
+                    "Date of birth:",
+                  ),
+                ]),
+                SizedBox(height: size.height * 0.02),
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // DATE OF BIRTH
                       // START: DATE VALIDATION DAY-MONTH-YEAR
-                      Text("Date of birth:"),
+                      // Text("Date of birth:"),
                       // SizedBox(
                       //   width: size.width * 0.02,
                       // ),
@@ -255,7 +264,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // Height
                 TextFormField(
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Height'),
+                    decoration: InputDecoration(labelText: 'Height (cm)'),
                     initialValue: '${_profile.height}',
                     validator: (value) {
                       if (value.isEmpty) {
@@ -270,7 +279,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // Weight
                 TextFormField(
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Weight'),
+                    decoration: InputDecoration(labelText: 'Weight (kg)'),
                     initialValue: '${_profile.weight}',
                     validator: (value) {
                       if (value.isEmpty) {

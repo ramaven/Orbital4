@@ -369,7 +369,7 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                     suggestions: med.list,
                     validator: (x) {
                       if (!med.list.contains(x) || x.isEmpty) {
-                        return 'Please Enter a valid State';
+                        return 'Choose an option from the list';
                       }
                       return null;
                     },
@@ -483,8 +483,27 @@ class _NewPainLogScreenState extends State<NewPainLogScreen> {
                                   .catchError(
                                       (error) => print(error.toString()));
 
-                              _showDialog(context);
+                              //_showDialog(context);
                               print(_painDropDownValue);
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Saved'),
+                                      content: Text("Saved new entry"),
+                                      actions: <Widget>[
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed('home');
+                                            },
+                                            child: Text('OK'))
+                                      ],
+                                    );
+                                  });
+                              // Navigator.of(context)
+                              //     .pushReplacementNamed('home');
                             }
                           },
                           child: Text('Save'))),

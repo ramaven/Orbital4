@@ -22,7 +22,7 @@ class _TrackPainBackgroundState extends State<TrackPainBackground> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SfCalendar(
-            view: CalendarView.week,
+            view: CalendarView.month,
             firstDayOfWeek: 7,
             initialSelectedDate: DateTime.now(),
             dataSource: PainLogSource(getPainLog()),
@@ -54,7 +54,7 @@ class _TrackPainBackgroundState extends State<TrackPainBackground> {
                   child: Text(" Add New Entry"))
             ],
           ),
-          SizedBox(height: size.height * 0.03),
+          SizedBox(height: size.height * 0.01),
           Container(
             width: size.width * 0.95,
             height: size.height * 0.10,
@@ -77,7 +77,7 @@ class _TrackPainBackgroundState extends State<TrackPainBackground> {
             ),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(" The calendar feature is still under construction."),
+              Text(" The calendar feature is for our future expansion."),
               Text("You can currently add new entries, view them"),
               Text("and see a summary in the Home tab."),
             ]),

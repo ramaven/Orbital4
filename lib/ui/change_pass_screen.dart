@@ -44,15 +44,31 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.07,
                     ),
-                    Text(
-                      "Reset Password",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold
-                          //color: Colors.orange[800],
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
                           ),
-                    ),
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed('login');
+                          }),
+                      SizedBox(
+                        width: size.width * 0.1,
+                      ),
+                      Text(
+                        "Reset Password",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold
+                            //color: Colors.orange[800],
+                            ),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.2,
+                      ),
+                    ]),
                   ],
                 )),
             Form(

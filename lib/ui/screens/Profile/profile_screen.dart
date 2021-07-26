@@ -154,12 +154,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   thickness: 1,
                 ),
                 // Height
-                ProfileField(label: 'Height:', value: '${_profile.height}'),
+                ProfileField(
+                    label: 'Height(cm) :', value: '${_profile.height}'),
 
                 SizedBox(height: size.height * 0.02),
 
                 // Weight
-                ProfileField(label: 'Weight:', value: '${_profile.weight}'),
+                ProfileField(
+                    label: 'Weight(kg) :', value: '${_profile.weight}'),
 
                 SizedBox(height: size.height * 0.02),
 
@@ -263,26 +265,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 SizedBox(height: size.height * 0.02),
 
-                Center(
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        backgroundColor: Colors.orange.shade100,
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                    onPressed: () async {
-                      await authBase.logout();
-                      Navigator.of(context).pushReplacementNamed('login');
-                    },
-                    child: Text(
-                      "SIGN OUT",
-                      style: TextStyle(
-                          fontSize: 16,
-                          letterSpacing: 2.2,
-                          color: Colors.black),
-                    ),
-                  ),
-                ),
+                // Center(
+                //   child: OutlinedButton(
+                //     style: OutlinedButton.styleFrom(
+                //         backgroundColor: Colors.orange.shade100,
+                //         padding: const EdgeInsets.symmetric(horizontal: 40),
+                //         shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(20))),
+                //     onPressed: () async {
+                //       await authBase.logout();
+                //       Navigator.of(context).pushReplacementNamed('login');
+                //     },
+                //     child: Text(
+                //       "SIGN OUT",
+                //       style: TextStyle(
+                //           fontSize: 16,
+                //           letterSpacing: 2.2,
+                //           color: Colors.black),
+                //     ),
+                //   ),
+                // ),
               ]),
             ),
           ),

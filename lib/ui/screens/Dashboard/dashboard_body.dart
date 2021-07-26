@@ -61,16 +61,22 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
           ),
           (globals.Userprofile.firstName == "NIL" ||
                   globals.Userprofile.firstName == null)
-              ? Text("Please fill up your Profile",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue))
-              : Text("${globals.Userprofile.firstName}'s Pain Summary",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
+              ? Container(
+                  width: size.width * 0.7,
+                  child: Text("Please fill up your Profile",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red)),
+                )
+              : Container(
+                  width: size.width * 0.5,
+                  child: Text("${globals.Userprofile.firstName}'s Pain Summary",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                ),
           Divider(
             height: size.height * 0.03,
             thickness: 1,
@@ -195,7 +201,7 @@ class _DashboardBackgroundState extends State<DashboardBackground> {
                               return AlertDialog(
                                 title: Text('Pain level Chart'),
                                 content: Text(
-                                    "This pie chart shows the distribution of the pain scores that you have logged. Low refers to a pain score of 1 to 3, medium refers to a pain score of 4-6 and high refers to a pain score of 7-10"),
+                                    "This pie chart shows the distribution of the pain scores that you have logged. Low refers to a pain score of 1 to 3, medium refers to a pain score of 4-7 and high refers to a pain score of 8-10"),
                                 actions: <Widget>[
                                   TextButton(
                                       onPressed: () {
