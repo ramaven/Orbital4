@@ -1,5 +1,4 @@
-NUS Orbital Programme 2021 
-Level of Achievement: Artemis (Extreme)
+NUS Orbital Programme 2021 - Artemis (Extreme)
 
 We are Ruoyan and Rama and we are developing a mobile application called HEALth Together. HEALth Together is a digital healthcare ecosystem that provides end to end pain management support for patients - from the time when they start to feel any pain, till they reach a doctor, and throughout the pain monitoring and management process. 
 
